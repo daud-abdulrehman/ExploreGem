@@ -1,0 +1,179 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+.addPlans {
+  font-family: "Open Sans", sans-serif !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  padding-bottom: 7%;
+  @media (max-width: 600px) {
+    height: auto;
+  }
+
+  h1 {
+    margin-bottom: 50px;
+    margin-top: 30px;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .grid-container {
+      width: 90%;
+      display: grid;
+      justify-items: center;
+      @media (min-width: 600px) {
+        // add a media query for larger screen sizes
+        grid-template-columns: repeat(4, 1fr);
+      }
+      button {
+        color: #00a651;
+        border: 2px solid #00a651 !important;
+        background-color: white !important;
+        padding-top: 13px;
+        padding-bottom: 13px;
+        width: 250px !important;
+      }
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      // margin-bottom: 20px;
+      margin-left: 0px;
+      margin-right: -5px;
+      margin-bottom: 20px;
+
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 1 !important;
+      }
+      input[type="date"]::-webkit-inner-spin-button,
+      input[type="date"]::-webkit-clear-button,
+      input[type="date"]::-webkit-outer-spin-button {
+        -webkit-appearance: none !important;
+        margin: 0 !important;
+      }
+      input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+      input[type="date"]::-webkit-datetime-edit-text,
+      input[type="date"]::-webkit-datetime-edit-month-field,
+      input[type="date"]::-webkit-datetime-edit-day-field,
+      input[type="date"]::-webkit-datetime-edit-year-field {
+        color: transparent !important;
+        -webkit-appearance: none !important;
+        display: none !important;
+      }
+      input[type="date"]::-webkit-datetime-edit {
+        padding-left: 10px !important;
+      }
+
+      p {
+        margin-bottom: 10px;
+        white-space: nowrap;
+        align-self: center;
+      }
+
+      .MuiFormControl-root {
+        width: 250px;
+
+        .MuiOutlinedInput-root {
+          fieldset {
+            border-color: #00a651;
+            border-width: 2px;
+            border-radius: 10px;
+          }
+        }
+      }
+
+      button {
+        width: 300px;
+        align-self: center;
+        background-color: #00a651;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .centered {
+        display: flex;
+        flex-direction: column; // Adjusted this to use column layout
+        align-items: center;
+        justify-content: center; // Added justify-content to center vertically
+        width: 100%;
+      }
+    }
+
+    .MuiFormControl-root {
+      width: 250px;
+
+      .MuiOutlinedInput-root {
+        fieldset {
+          border-color: #00a651;
+          border-width: 2px;
+          border-radius: 10px;
+        }
+      }
+    }
+
+    button {
+      width: 300px;
+      align-self: center;
+      background-color: #00a651;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 24px !important;
+      margin-top: 9%;
+    }
+
+    .grid-container {
+      grid-template-columns: 1fr;
+    }
+
+    .form-field {
+      margin-bottom: 20px !important;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      opacity: 1 !important;
+    }
+    input[type="date"]::-webkit-inner-spin-button,
+    input[type="date"]::-webkit-clear-button,
+    input[type="date"]::-webkit-outer-spin-button {
+      -webkit-appearance: none !important;
+      margin: 0 !important;
+    }
+    input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+    input[type="date"]::-webkit-datetime-edit-text,
+    input[type="date"]::-webkit-datetime-edit-month-field,
+    input[type="date"]::-webkit-datetime-edit-day-field,
+    input[type="date"]::-webkit-datetime-edit-year-field {
+      color: transparent !important;
+      -webkit-appearance: none !important;
+      display: none !important;
+    }
+  }
+}

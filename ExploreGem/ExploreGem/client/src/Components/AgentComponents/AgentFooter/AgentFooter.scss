@@ -1,0 +1,12 @@
+.page-content {
+  min-height: calc(100vh - 10rem); /*10rem is the size of footer*/
+}
+.mui-navbar {
+  height: 10rem; /*the fixed height of the footer*/
+}
+
+.mui-navbar {
+  background-image: url("../../../Picture/AppBar.jpg");
+  background-size: cover;
+  align-items: baseline;
+}

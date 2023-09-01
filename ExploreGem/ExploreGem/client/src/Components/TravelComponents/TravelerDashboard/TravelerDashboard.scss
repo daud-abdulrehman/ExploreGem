@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+.travelerplan-container {
+  font-family: "Open Sans", sans-serif !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 600px) {
+    .form-row {
+      flex-direction: column; /* Stack fields vertically on mobile */
+      align-items: center; /* Center fields horizontally */
+      padding: 0; /* Remove padding on mobile */
+    }
+  
+    .MuiFormControl-root {
+      width: 100%;
+      max-width: 300px;
+      margin-bottom: 20px;
+    }
+  
+    button {
+      width: 100%;
+      max-width: 300px;
+      align-self: center;
+      background-color: #00a651;
+    }
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .form {
+      display: flex;
+      flex-direction: column;
+
+      .MuiFormControl-root {
+        width: 300px;
+        margin-bottom: 20px;
+
+        .MuiOutlinedInput-root {
+          fieldset {
+            border-color: #00a651;
+            border-width: 2px;
+            border-radius: 10px;
+          }
+        }
+      }
+
+      button {
+        width: 300px;
+        align-self: center;
+        background-color: #00a651;
+      }
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-left: 5px;
+    }
+  }
+}
+
+/* Add space between text fields */
+.MuiFormControl-root:not(:last-child) {
+  margin-right: 20px; /* Adjust spacing as needed */
+  @media (max-width: 600px) {
+    margin-right: 0px;
+  }
+} 
+
+.main-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 10%;
+  padding-bottom: 5%;
+}
+
+/* ... Other existing CSS rules ... */

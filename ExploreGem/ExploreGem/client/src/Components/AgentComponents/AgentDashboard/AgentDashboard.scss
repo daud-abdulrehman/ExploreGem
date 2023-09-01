@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+.agentDashboard {
+  h1,
+  table {
+    margin: 0 auto;
+    font-family: "Open Sans", sans-serif !important;
+  }
+  h1 {
+    text-align: center;
+    margin-top: 10%;
+  }
+
+  table {
+    border-collapse: separate;
+    max-width: 80%;
+    border: 3px solid #00a651;
+    border-radius: 10px;
+  }
+  .tableValues {
+    border-bottom: none;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+    .tableValues {
+      font-size: 0.8rem !important;
+      border-bottom: none;
+    }
+
+    table {
+      max-width: 90%;
+      font-size: 0.8rem;
+    }
+  }
+}

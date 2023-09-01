@@ -1,0 +1,33 @@
+.footer {
+  background-image: url("../../Picture/AppBar.jpg");
+  background-size: cover;
+  padding: 16px 0;
+  color: black;
+  text-align: center;
+
+  .icon-button {
+    margin: 8px;
+    color: white;
+  }
+
+  .copyright {
+    background-color: white;
+    padding: 8px 0;
+    align-items: center;
+  }
+
+  @media (max-width: 600px) {
+    /* Styles for screens with a max width of 600px (mobile) */
+    background-image: url("../../Picture/AppBar.jpg"); /* Remove background image on mobile */
+    background-color: black; /* Set background color on mobile */
+    color: white; /* Set text color on mobile */
+
+    .icon-button {
+      margin: 4px;
+    }
+
+    .copyright {
+      background-color:white;
+    }
+  }
+}

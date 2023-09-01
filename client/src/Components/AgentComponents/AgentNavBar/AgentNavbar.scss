@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css?family=Laila");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+.mui-navbar {
+  background-image: url("../../../Picture/AppBar.jpg");
+  background-size: cover;
+  h5 {
+    font-family: "Laila", sans-serif !important;
+    font-size: large;
+    padding-right: 30%;
+  }
+  h6 {
+    font-family: "Open Sans", sans-serif !important;
+    color: white;
+    font-size: large;
+    padding-left: 5%;
+    white-space: nowrap;
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+  .mui-icon {
+    padding-left: 20%;
+  }
+}

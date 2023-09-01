@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css?family=Laila");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.WebsiteName {
+  font-family: "Laila", sans-serif !important;
+  color: white;
+  text-align: left;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.parent {
+  display: flex;
+  justify-content: center;
+  padding-top: 38vh;
+  align-items: center;
+
+  @media (max-width: 600px) {
+    padding-top: 20vh;
+  }
+}
+
+.CenterText {
+  font-family: "Open Sans", sans-serif !important;
+  color: white;
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 1px;
+}
+
+.AboutText {
+  font-family: "Open Sans", sans-serif !important;
+  color: white;
+  text-align: center;
+  padding-left: 15%;
+  padding-right: 15%;
+  margin-top: 1px;
+
+  @media (max-width: 600px) {
+    font-size: 0.8em;
+    padding-left: 15%;
+    padding-right: 15%;
+  }
+}
+
+.button-parent {
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.MuiButton-root {
+  text-align: center;
+  border-radius: 12px !important ;
+}
