@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AgentNavbar } from "../AgentNavBar/AgentNavbar";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
@@ -9,6 +9,17 @@ import "./AddPlans.scss";
 import Footer from "../../Footer/Footer";
 
 export const AddPlansForm = () => {
+  const { loginType } = useAuth();
+  const [imageFile, setImageFile] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setImageFile(URL.createObjectURL(file));
+      console.log(imageFile);
+    }
+  };
   // const { loginType } = useAuth();
   const addPlansSchema = Yup.object().shape({
     departurecity: Yup.string().required("Required"),
@@ -22,8 +33,8 @@ export const AddPlansForm = () => {
     image: Yup.mixed().required("Required"),
   });
   return (
-   <>
-   <AgentNavbar/>
+    <>
+      <AgentNavbar />
       <Grid container>
         <div className="addPlans">
           <h1>Add Plans</h1>
@@ -41,9 +52,22 @@ export const AddPlansForm = () => {
             }}
             validationSchema={addPlansSchema}
             onSubmit={async (values) => {
-              // const response = await AddPlan(values, loginType); // Pass loginType to AddPlan
-              // console.log(response);
-              console.log(values);
+              const formData = new FormData();
+              formData.append("departurecity", values.departurecity);
+              formData.append("destinationcity", values.destinationcity);
+              formData.append("date", values.date);
+              formData.append("triplength", values.triplength);
+              formData.append("visitplaces", values.visitplaces);
+              formData.append("tripcost", values.tripcost);
+              formData.append("food", values.food);
+              formData.append("plannedactivities", values.plannedactivities);
+              formData.append("image", imageFile);
+              if (imageFile) {
+                formData.append("image", imageFile);
+              }
+              console.log("Image", imageFile);
+              const response = await AddPlan(values, imageFile, loginType);
+              console.log(response);
             }}
           >
             {({ errors, touched, setFieldValue }) => (
@@ -214,6 +238,7 @@ export const AddPlansForm = () => {
                               "image",
                               event.currentTarget.files[0]
                             );
+                            handleImageChange(event);
                           }}
                         />
                         <div className="image-button">
@@ -268,7 +293,7 @@ export const AddPlansForm = () => {
           </Formik>
         </div>
       </Grid>
-      <Footer/>
-      </>
+      <Footer />
+    </>
   );
 };

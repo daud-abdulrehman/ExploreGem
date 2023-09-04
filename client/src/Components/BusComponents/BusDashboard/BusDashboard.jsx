@@ -6,20 +6,22 @@ import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
 import { BusNavbar } from "../BusNavBar/BusNavbar";
 import { useMediaQuery } from "@mui/material";
-import { fetchBuses } from "../../API/api";
+import { FetchBuses } from "../../API/api";
 import "./BusDashboard.scss";
 import Footer from "../../Footer/Footer";
+import { useAuth } from "../../AuthContext/AuthContext";
 
 export const BusDashboard = () => {
   // Fetch data from the database
   const [data, setData] = React.useState([]);
   const isMobile = useMediaQuery("(max-width:600px)");
+  const { loginType } = useAuth();
 
   React.useEffect(() => {
-    fetchBuses()
+    FetchBuses(loginType)
       .then((data) => setData(data))
       .catch((error) => console.error(error));
-  }, []);
+  }, [loginType]);
 
   return (
     <>
@@ -31,55 +33,65 @@ export const BusDashboard = () => {
             <TableRow>
               {!isMobile ? (
                 <>
-                  <TableCell>License Number</TableCell>
-                  <TableCell>Source</TableCell>
-                  <TableCell>Destination</TableCell>
-                  <TableCell>Category</TableCell>
-                  <TableCell>Seats</TableCell>
-                  <TableCell>Cost</TableCell>
-                </>
-              ) : (
-                <>
                   <TableCell className="tableValues">License Number</TableCell>
                   <TableCell className="tableValues">Source</TableCell>
                   <TableCell className="tableValues">Destination</TableCell>
+                  <TableCell className="tableValues">Seats</TableCell>
+                  <TableCell className="tableValues">Booked Seats</TableCell>
+                  <TableCell className="tableValues">Category</TableCell>
+                  <TableCell className="tableValues">Ticket Price</TableCell>
+                  <TableCell className="tableValues">Departure Time</TableCell>
+                  <TableCell className="tableValues">Departure Date</TableCell>
+                </>
+              ) : (
+                <>
+                  <TableCell className="tableValues">Source</TableCell>
+                  <TableCell className="tableValues">Destination</TableCell>
                   <TableCell className="tableValues">Cost</TableCell>
+                  <TableCell className="tableValue">Departure Date</TableCell>
                 </>
               )}
             </TableRow>
           </TableHead>
-          <TableBody>
-            {!isMobile ? (
-              <>
+
+          {!isMobile ? (
+            <>
+              <TableBody>
                 {Array.isArray(data) &&
-                  data.map((row) => (
-                    <TableRow key={row.id}>
-                      <TableCell>{row.licenseNumber}</TableCell>
-                      <TableCell>{row.source}</TableCell>
-                      <TableCell>{row.destination}</TableCell>
-                      <TableCell>{row.category}</TableCell>
+                  data.map((row, index) => (
+                    <TableRow key={`${index}-${row.id}`}>
+                      <TableCell>{row.lisceneplate}</TableCell>
+                      <TableCell>{row.departurecity}</TableCell>
+                      <TableCell>{row.destinationcity}</TableCell>
                       <TableCell>{row.seats}</TableCell>
-                      <TableCell>{row.cost}</TableCell>
+                      <TableCell>{row.bookedseats}</TableCell>
+                      <TableCell>{row.ticketprice}</TableCell>
+                      <TableCell>{row.departuretime}</TableCell>
+                      <TableCell>
+                        {new Date(row.date).toLocaleDateString()}
+                      </TableCell>
                     </TableRow>
                   ))}
-              </>
-            ) : (
-              <>
-                {Array.isArray(data) &&
-                  data.map((row) => (
-                    <TableRow key={row.id}>
-                      <TableCell>{row.licenseNumber}</TableCell>
-                      <TableCell>{row.source}</TableCell>
-                      <TableCell>{row.destination}</TableCell>
-                      <TableCell>{row.cost}</TableCell>
-                    </TableRow>
-                  ))}
-              </>
-            )}
-          </TableBody>
+              </TableBody>
+            </>
+          ) : (
+            <>
+              {Array.isArray(data) &&
+                data.map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell>{row.departurecity}</TableCell>
+                    <TableCell>{row.destinationcity}</TableCell>
+                    <TableCell>{row.ticketprice}</TableCell>
+                    <TableCell>
+                      {new Date(row.date).toLocaleDateString()}
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </>
+          )}
         </Table>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

@@ -1,4 +1,8 @@
 const User = require("../modals/userSchema");
+const Agent = require("../modals/agentSchema");
+const Hotel = require("../modals/hotelSchema");
+const Traveller = require("../modals/travelerSchema");
+const Bus = require("../modals/buscompanySchema");
 const jwt = require("jsonwebtoken");
 
 const userControllers = {};
@@ -30,7 +34,6 @@ userControllers.Signup = async (req, res) => {
 // Admin Signin
 userControllers.Signin = async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const existingUser = await User.findOne({ email });
 
@@ -43,9 +46,14 @@ userControllers.Signin = async (req, res) => {
     if (existingUser.password !== password) {
       return res.status(401).json({ error: "Incorrect password." });
     }
-    const type = existingUser.type;
+
+    const existingTypeUser = await getTypeUser(
+      existingUser.id,
+      existingUser.type
+    ); // Helper function
+
     const typeIdtoken = jwt.sign(
-      { typeId: existingUser.userId },
+      { typeId: existingTypeUser.id },
       "Secret-Key",
       {
         expiresIn: "1h",
@@ -54,12 +62,35 @@ userControllers.Signin = async (req, res) => {
     const token = jwt.sign({ id: existingUser.id }, "Secret-Key", {
       expiresIn: "1h",
     });
-    res.json({ token, type, typeIdtoken });
-    console.log("login Sucessful", type);
+    res.json({ token, type: existingUser.type, typeIdtoken });
+    console.log("Login Successful", existingUser.type);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to sign in user" });
   }
 };
+
+async function getTypeUser(existingUserid, userType) {
+  let typeModel;
+
+  switch (userType) {
+    case "traveller":
+      typeModel = Traveller;
+      break;
+    case "agent":
+      typeModel = Agent;
+      break;
+    case "hotel":
+      typeModel = Hotel;
+      break;
+    case "bus":
+      typeModel = Bus;
+      break;
+    default:
+      throw new Error("Invalid user type");
+  }
+
+  return await typeModel.findOne({ userId: existingUserid });
+}
 
 module.exports = userControllers;

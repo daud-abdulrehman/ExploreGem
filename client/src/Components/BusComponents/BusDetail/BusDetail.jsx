@@ -6,6 +6,7 @@ import "./BusDetail.scss";
 import { Grid, useMediaQuery } from "@mui/material";
 import BusDetails from "../../../Picture/Detail.jpg";
 import { addBusCompany } from "../../API/api";
+import { useNavigate } from "react-router-dom";
 
 export const BusDetail = () => {
   const buscompanySchema = Yup.object().shape({
@@ -14,6 +15,7 @@ export const BusDetail = () => {
     liscenceno: Yup.number().required("Required"),
   });
   const isMobile = useMediaQuery("(max-width:600px)");
+  const navigate = useNavigate();
 
   return (
     <Grid container>
@@ -41,7 +43,10 @@ export const BusDetail = () => {
               }}
               validationSchema={buscompanySchema}
               onSubmit={async (values) => {
-                await addBusCompany(values);
+                const response = await addBusCompany(values);
+                if (response) {
+                  navigate("/bus-dashboard");
+                }
               }}
             >
               {({ errors, touched, setFieldValue }) => (

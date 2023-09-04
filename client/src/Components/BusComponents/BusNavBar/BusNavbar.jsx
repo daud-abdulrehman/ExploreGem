@@ -13,14 +13,13 @@ import {
 } from "@mui/material";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useLocation } from "react-router-dom";
 
 export const BusNavbar = () => {
+  const location = useLocation();
   const isMobile = useMediaQuery("(max-width:600px)");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -66,15 +65,44 @@ export const BusNavbar = () => {
                       horizontal: "left",
                     }}
                   >
-                    <MenuItem onClick={handleClose}>Home</MenuItem>
-                    <MenuItem onClick={handleClose}>Add Buses</MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <Link to="/bus-dashboard" className="navbar-link">
+                        {" "}
+                        Home{" "}
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      {" "}
+                      <Link to="/bus/add-buses" className="navbar-link">
+                        {" "}
+                        Add Buses{" "}
+                      </Link>
+                    </MenuItem>
                     <MenuItem onClick={handleClose}>Bus Bookings</MenuItem>
                   </Menu>
                 </>
               ) : (
                 <>
-                  <h6 onClick={() => navigate("/bus-dashboard")}>Home</h6>
-                  <h6 onClick={() => navigate("/bus/add-bus")}>Add Buses</h6>
+                  <h6
+                    className={
+                      location.pathname === "/bus-dashboard" ? "active-tab" : ""
+                    }
+                  >
+                    <Link to="/bus-dashboard" className="navbar-link">
+                      {" "}
+                      Home{" "}
+                    </Link>
+                  </h6>
+                  <h6
+                    className={
+                      location.pathname === "/bus/add-buses" ? "active-tab" : ""
+                    }
+                  >
+                    <Link to="/bus/add-buses" className="navbar-link">
+                      {" "}
+                      Add Buses{" "}
+                    </Link>
+                  </h6>
                   <h6>Bus Bookings</h6>
                 </>
               )}

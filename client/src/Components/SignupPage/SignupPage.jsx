@@ -14,8 +14,10 @@ import {
 import SignupBackground from "../../Picture/Sign.jpg";
 import { AddUser } from "../API/api";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext/AuthContext";
 
 export const SignupPage = () => {
+  const { setIsLoggedIn, setLoginType } = useAuth();
   const [value] = React.useState("");
   const signupSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
@@ -53,6 +55,8 @@ export const SignupPage = () => {
               onSubmit={async (values) => {
                 const response = await AddUser(values);
                 const type = response.type;
+                setIsLoggedIn(true);
+                setLoginType(type);
                 if (type === "traveller") {
                   navigate("/traveller-details");
                 } else if (type === "agent") {

@@ -10,7 +10,7 @@ import { GetUser } from "../API/api";
 import { useAuth } from "../AuthContext/AuthContext";
 
 export const SigninPage = () => {
-  const { loginType, setIsLoggedIn, setLoginType } = useAuth();
+  const { setIsLoggedIn, setLoginType } = useAuth();
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Required"),
     password: Yup.string().required("Required"),
@@ -46,7 +46,6 @@ export const SigninPage = () => {
                 const type = response.type;
                 setIsLoggedIn(true);
                 setLoginType(type);
-                console.log(loginType);
                 if (type === "traveller") {
                   navigate("/traveller-dashboard");
                 } else if (type === "agent") {

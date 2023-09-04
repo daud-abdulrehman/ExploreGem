@@ -40,9 +40,8 @@ function App() {
           <Route path="/agent/add-plans" element={<AddPlansForm />} />
           <Route path="/hotel/add-room" element={<AddRoom />} />
           <Route path="/traveler-dashboard" element={<TravelerDashboard />} />
-          <Route path="/bus/add-bus" element={<AddBus />} />
+          <Route path="/bus/add-buses" element={<AddBus />} />
           <Route path="/agent-navbar" element={<AgentNavbar />} />
-
         </Routes>
       </div>
     </Router>

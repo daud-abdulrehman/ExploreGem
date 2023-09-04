@@ -1,18 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "./TravelerDashboard.scss";
 import Header from "../TravelerNavBar/TravelerNavBar";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Grid, useMediaQuery, TextField, Button } from "@mui/material";
-import { addUser } from "../../API/api";
-import { useNavigate } from "react-router-dom";
 import "./TravelerDashboard.scss";
 import Footer from "../../Footer/Footer";
 
-
 export const TravelerDashboard = () => {
-  const [value] = React.useState("");
+  //const [value] = React.useState("");
   const travelerdashboardSchema = Yup.object().shape({
     depaturecity: Yup.string().required("Required"),
     destinationcity: Yup.string().required("Required"),
@@ -22,7 +18,6 @@ export const TravelerDashboard = () => {
     travelbudget: Yup.number().required("Required"),
   });
   const isMobile = useMediaQuery("(max-width:600px)");
-  const navigate = useNavigate();
 
   return (
     <>
@@ -99,9 +94,8 @@ export const TravelerDashboard = () => {
                         setFieldValue("depaturedate", event.target.value);
                       }}
                     />
-                    </div>
-                    <div className="form-row">
-
+                  </div>
+                  <div className="form-row">
                     <TextField
                       id="returndate"
                       name="returndate"
@@ -153,7 +147,7 @@ export const TravelerDashboard = () => {
                         setFieldValue("travelbudget", event.target.value);
                       }}
                     />
-                    </div>
+                  </div>
                   <Button variant="contained" type="submit" color="success">
                     Submit
                   </Button>
@@ -163,7 +157,7 @@ export const TravelerDashboard = () => {
           </div>
         </div>
       </Grid>
-      <Footer/>
+      <Footer />
     </>
   );
 };
