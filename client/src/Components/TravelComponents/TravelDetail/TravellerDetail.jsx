@@ -6,6 +6,7 @@ import "./TravellerDetail.scss";
 import { Grid, useMediaQuery } from "@mui/material";
 import TravelerBackground from "../../../Picture/Detail.jpg";
 import { addTravellerDetails } from "../../API/api";
+import { useNavigate } from "react-router-dom";
 
 export const TravellerDetail = () => {
   const travelerSchema = Yup.object().shape({
@@ -14,7 +15,7 @@ export const TravellerDetail = () => {
     cnic: Yup.number().required("Required"),
   });
   const isMobile = useMediaQuery("(max-width:600px)");
-
+  const navigate = useNavigate();
   return (
     <Grid container>
       {!isMobile && (
@@ -41,7 +42,10 @@ export const TravellerDetail = () => {
               }}
               validationSchema={travelerSchema}
               onSubmit={async (values) => {
-                await addTravellerDetails(values);
+                const response = await addTravellerDetails(values);
+                if (response) {
+                  navigate("/traveller-dashboard");
+                }
               }}
             >
               {({ errors, touched, setFieldValue }) => (

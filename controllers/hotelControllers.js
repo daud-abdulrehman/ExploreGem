@@ -25,8 +25,7 @@ hotelControllers.fetchRooms = async (req, res) => {
   try {
     const { hotelId } = req.query;
 
-    const hotel = await Hotel.find({ buscompanyId });
-    ////console.log(plans);
+    const hotel = await Room.find({ hotelId });
     res.send(hotel);
   } catch (error) {
     console.error("Error fetching plans:", error);

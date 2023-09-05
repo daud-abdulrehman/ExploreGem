@@ -13,10 +13,10 @@ travelerControllers.Signup = async (req, res) => {
 
   const newTraveler = { username, contact, cnic, userId };
   const createtraveler = await Traveler.create(newTraveler);
-  res.send({ msg: "Traveler Signup Successful", createtraveler });
+  const typeIdtoken = jwt.sign({ typeId: createtraveler._id }, "Secret-Key", {
+    expiresIn: "1h",
+  });
+  res.json({ createtraveler, typeIdtoken });
 };
-
-
-
 
 module.exports = travelerControllers;

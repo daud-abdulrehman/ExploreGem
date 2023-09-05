@@ -5,6 +5,6 @@ const { Router } = require("express");
 const router = Router();
 //hotel signup
 router.post("/signup", hotelControllers.Signup);
-router.get("/fetch-buses", hotelControllers.fetchRooms);
+router.get("/fetch-rooms", hotelControllers.fetchRooms);
 router.post("/add-rooms", imagesaver, hotelControllers.AddRooms);
 module.exports = router;

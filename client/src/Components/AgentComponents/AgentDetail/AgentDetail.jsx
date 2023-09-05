@@ -6,6 +6,7 @@ import "./AgentDetail.scss";
 import { Grid, useMediaQuery } from "@mui/material";
 import AgentDetails from "../../../Picture/Detail.jpg";
 import { addAgent } from "../../API/api";
+import { useNavigate } from "react-router-dom";
 
 export const AgentDetail = () => {
   const agentSchema = Yup.object().shape({
@@ -14,6 +15,7 @@ export const AgentDetail = () => {
     liscenceno: Yup.number().required("Required"),
   });
   const isMobile = useMediaQuery("(max-width:600px)");
+  const navigate = useNavigate();
 
   return (
     <Grid container>
@@ -41,7 +43,10 @@ export const AgentDetail = () => {
               }}
               validationSchema={agentSchema}
               onSubmit={async (values) => {
-                await addAgent(values);
+                const response = await addAgent(values);
+                if (response) {
+                  navigate("/agent-dashboard");
+                }
               }}
             >
               {({ errors, touched, setFieldValue }) => (

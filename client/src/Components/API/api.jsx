@@ -91,7 +91,8 @@ export const addAgent = async (values) => {
         "Content-Type": "application/json",
       },
     });
-    ////console.log(response.data);
+    const { typeIdtoken } = response.data;
+    localStorage.setItem("typeIdtoken", typeIdtoken);
     return response.data;
   } catch (error) {
     console.error("server error");
@@ -124,7 +125,7 @@ export const FetchRooms = async (loginType) => {
       const decodedToken = jwt_decode(token);
       const hotelId = decodedToken.typeId;
       const response = await axios.get(
-        `${BASE_URL}/bus/fetch-buses?buscompanyId=${hotelId}`
+        `${BASE_URL}/hotel/fetch-rooms?hotelId=${hotelId}`
       );
       return response.data;
     } catch (error) {
