@@ -1,14 +1,13 @@
 import React from "react";
 import "./TravelerDashboard.scss";
-import Header from "../TravelerNavBar/TravelerNavBar";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Grid, useMediaQuery, TextField, Button } from "@mui/material";
 import "./TravelerDashboard.scss";
 import Footer from "../../Footer/Footer";
+import TravelerNavBar from "../TravelerNavBar/TravelerNavBar";
 
 export const TravelerDashboard = () => {
-  //const [value] = React.useState("");
   const travelerdashboardSchema = Yup.object().shape({
     depaturecity: Yup.string().required("Required"),
     destinationcity: Yup.string().required("Required"),
@@ -21,7 +20,7 @@ export const TravelerDashboard = () => {
 
   return (
     <>
-      <Header />
+      <TravelerNavBar />
       <h1 className="main-heading">Enter Your Travel Plan</h1>
 
       <Grid item xs={isMobile ? 12 : 4}>

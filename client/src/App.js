@@ -20,6 +20,7 @@ import { AgentNavbar } from "./Components/AgentComponents/AgentNavBar/AgentNavba
 import { AddPlansForm } from "./Components/AgentComponents/AddPlans/AddPlans";
 import { TravelerDashboard } from "./Components/TravelComponents/TravelerDashboard/TravelerDashboard";
 import { TravellerDetail } from "./Components/TravelComponents/TravelDetail/TravellerDetail";
+import { TravelerAccomadation } from "./Components/TravelComponents/TravelerAccomadation/TravelerAccomadation";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path="/traveler-dashboard" element={<TravelerDashboard />} />
           <Route path="/bus/add-buses" element={<AddBus />} />
           <Route path="/agent-navbar" element={<AgentNavbar />} />
+          <Route path = "/traveler/accomadations" element= {<TravelerAccomadation/>}/>
         </Routes>
       </div>
     </Router>

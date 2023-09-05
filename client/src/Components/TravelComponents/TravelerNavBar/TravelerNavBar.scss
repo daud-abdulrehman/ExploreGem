@@ -2,24 +2,28 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 
 .traveler-mui-navbar {
-  background-image: url("./navbarbackground.jpg");
+  background-image: url("../../../Picture/AppBar.jpg");
   background-size: cover;
   h5 {
     font-family: "Laila", sans-serif !important;
     font-size: large;
-    padding-right: 30%;
+    padding-right: 20%;
   }
   h6 {
     font-family: "Open Sans", sans-serif !important;
     color: white;
     font-size: large;
-    padding-left: 5%;
+    padding-left: 8%;
     white-space: nowrap;
     @media (max-width: 600px) {
       display: none;
     }
+    .navbar-link {
+      text-decoration: none;
+      color: white;
+    }
   }
   .mui-icon {
-    padding-left: 35%;
+    padding-left: 25%;
   }
 }

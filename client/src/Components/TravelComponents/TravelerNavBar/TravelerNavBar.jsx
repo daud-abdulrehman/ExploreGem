@@ -11,12 +11,15 @@ import {
   MenuItem,
   IconButton,
 } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import MenuIcon from "@mui/icons-material/Menu";
 
-export default function Header () {
+export default function TravelerNavBar () {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const location = useLocation();
+
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -69,8 +72,31 @@ export default function Header () {
                 </>
               ) : (
                 <>
-                  <h6>Home</h6>
-                  <h6>Accomadations</h6>
+                 <h6
+                    className={
+                      location.pathname === "/traveler-dashboard"
+                        ? "active-tab"
+                        : ""
+                    }
+                  >
+                    <Link to="/traveler-dashboard" className="navbar-link">
+                      {" "}
+                      Home{" "}
+                    </Link>
+                  </h6>
+                  <h6
+                    className={
+                      location.pathname === "/traveler/accomadations"
+                        ? "active-tab"
+                        : ""
+                    }
+                  >
+                    <Link to="/traveler/accomadations" className="navbar-link">
+                      {" "}
+                      Accomadations{" "}
+                    </Link>
+                  </h6>
+                  <h6>Bookings</h6>
                 </>
               )}
               <Button
