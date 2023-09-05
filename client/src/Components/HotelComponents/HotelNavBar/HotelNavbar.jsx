@@ -13,13 +13,13 @@ import {
 } from "@mui/material";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useNavigate } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 export const HotelNavbar = () => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -65,15 +65,47 @@ export const HotelNavbar = () => {
                       horizontal: "left",
                     }}
                   >
-                    <MenuItem onClick={handleClose}>Home</MenuItem>
-                    <MenuItem onClick={handleClose}>Add Room</MenuItem>
-                    <MenuItem onClick={handleClose}>Room Bookings</MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <Link to="/hotel-dashboard" className="navbar-link">
+                        {" "}
+                        Home{" "}
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <Link to="/hotel/add-rooms" className="navbar-link">
+                        {" "}
+                        Add Rooms{" "}
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>Booked Rooms</MenuItem>
                   </Menu>
                 </>
               ) : (
                 <>
-                  <h6 onClick={() => navigate("/hotel-dashboard")}>Home</h6>
-                  <h6 onClick={() => navigate("/hotel/add-room")}>Add Room</h6>
+                  <h6
+                    className={
+                      location.pathname === "/hotel-dashboard"
+                        ? "active-tab"
+                        : ""
+                    }
+                  >
+                    <Link to="/hotel-dashboard" className="navbar-link">
+                      {" "}
+                      Home{" "}
+                    </Link>
+                  </h6>
+                  <h6
+                    className={
+                      location.pathname === "/hotel/add-rooms"
+                        ? "active-tab"
+                        : ""
+                    }
+                  >
+                    <Link to="/hotel/add-rooms" className="navbar-link">
+                      {" "}
+                      Add Rooms{" "}
+                    </Link>
+                  </h6>
                   <h6>Room Bookings</h6>
                 </>
               )}

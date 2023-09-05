@@ -60,6 +60,6 @@ agentControllers.Addplans = async (req, res) => {
     agentId,
   };
   const plan = await Plan.create(newPlan);
-  res.send({ msg: "Plan Added Successfully", plan });
+  res.send({ msg: "Plan Added Successfully" });
 };
 module.exports = agentControllers;

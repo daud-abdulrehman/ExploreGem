@@ -38,7 +38,7 @@ function App() {
           <Route path="/hotel-dashboard" element={<HotelDashboard />} />
           <Route path="/bus-dashboard" element={<BusDashboard />} />
           <Route path="/agent/add-plans" element={<AddPlansForm />} />
-          <Route path="/hotel/add-room" element={<AddRoom />} />
+          <Route path="/hotel/add-rooms" element={<AddRoom />} />
           <Route path="/traveler-dashboard" element={<TravelerDashboard />} />
           <Route path="/bus/add-buses" element={<AddBus />} />
           <Route path="/agent-navbar" element={<AgentNavbar />} />

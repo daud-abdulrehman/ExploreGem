@@ -66,7 +66,7 @@ export const AddPlansForm = () => {
                 formData.append("image", imageFile);
               }
               ////console.log("Image", imageFile);
-              const response = await AddPlan(values, imageFile, loginType);
+              await AddPlan(values, imageFile, loginType);
               ////console.log(response);
             }}
           >

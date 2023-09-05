@@ -6,6 +6,7 @@ import "./HotelDetail.scss";
 import { Grid, useMediaQuery } from "@mui/material";
 import HotelDetails from "../../../Picture/Detail.jpg";
 import { addHotel } from "../../API/api";
+import { useNavigate } from "react-router-dom";
 
 export const HotelDetail = () => {
   const hotelSchema = Yup.object().shape({
@@ -15,6 +16,7 @@ export const HotelDetail = () => {
     location: Yup.string().required("Required"),
   });
   const isMobile = useMediaQuery("(max-width:600px)");
+  const navigate = useNavigate();
 
   return (
     <Grid container>
@@ -43,7 +45,10 @@ export const HotelDetail = () => {
               }}
               validationSchema={hotelSchema}
               onSubmit={async (values) => {
-                await addHotel(values);
+                const response = await addHotel(values);
+                if (response) {
+                  navigate("/hotel-dashboard");
+                }
               }}
             >
               {({ errors, touched, setFieldValue }) => (

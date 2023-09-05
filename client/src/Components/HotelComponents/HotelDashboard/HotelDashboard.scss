@@ -10,12 +10,18 @@
     text-align: center;
     margin-top: 10%;
   }
+  .css-1ex1afd-MuiTableCell-root {
+    border-bottom: none;
+  }
 
   table {
     border-collapse: separate;
     max-width: 80%;
     border: 3px solid #00a651;
     border-radius: 10px;
+  }
+  .tableValues {
+    border-bottom: none;
   }
 
   @media (max-width: 600px) {

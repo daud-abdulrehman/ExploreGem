@@ -6,20 +6,22 @@ import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
 import { HotelNavbar } from "../HotelNavBar/HotelNavbar";
 import { useMediaQuery } from "@mui/material";
-import { fetchHotelRooms } from "../../API/api";
+import { FetchRooms } from "../../API/api";
 import "./HotelDashboard.scss";
 import Footer from "../../Footer/Footer";
+import { useAuth } from "../../AuthContext/AuthContext";
 
 export const HotelDashboard = () => {
   // Fetch data from the database
   const [data, setData] = React.useState([]);
   const isMobile = useMediaQuery("(max-width:600px)");
+  const { loginType } = useAuth();
 
   React.useEffect(() => {
-    fetchHotelRooms()
+    FetchRooms(loginType)
       .then((data) => setData(data))
       .catch((error) => console.error(error));
-  }, []);
+  }, [loginType]);
 
   return (
     <>
@@ -31,51 +33,50 @@ export const HotelDashboard = () => {
             <TableRow>
               {!isMobile ? (
                 <>
-                  <TableCell>Bed</TableCell>
-                  <TableCell>Description</TableCell>
-                  <TableCell>Room</TableCell>
-                  <TableCell>Cost</TableCell>
+                  <TableCell className="tableValues">Description</TableCell>
+                  <TableCell className="tableValues">Bed Type</TableCell>
+                  <TableCell className="tableValues">Price</TableCell>
                 </>
               ) : (
                 <>
-                  <TableCell className="tableValues">Bed</TableCell>
                   <TableCell className="tableValues">Description</TableCell>
-                  <TableCell className="tableValues">Room</TableCell>
-                  <TableCell className="tableValues">Cost</TableCell>
+                  <TableCell className="tableValues">Bed Type</TableCell>
+                  <TableCell className="tableValues">Price</TableCell>
                 </>
               )}
             </TableRow>
           </TableHead>
-          <TableBody>
-            {!isMobile ? (
-              <>
+
+          {!isMobile ? (
+            <>
+              <TableBody>
                 {Array.isArray(data) &&
-                  data.map((row) => (
-                    <TableRow key={row.id}>
-                      <TableCell>{row.bed}</TableCell>
+                  data.map((row, index) => (
+                    <TableRow key={`${index}-${row.id}`}>
                       <TableCell>{row.description}</TableCell>
-                      <TableCell>{row.room}</TableCell>
-                      <TableCell>{row.cost}</TableCell>
+                      <TableCell>{row.bedtype}</TableCell>
+                      <TableCell>{row.price}</TableCell>
                     </TableRow>
                   ))}
-              </>
-            ) : (
-              <>
+              </TableBody>
+            </>
+          ) : (
+            <>
+              <TableBody>
                 {Array.isArray(data) &&
-                  data.map((row) => (
-                    <TableRow key={row.id}>
-                      <TableCell>{row.bed}</TableCell>
+                  data.map((row, index) => (
+                    <TableRow key={`${index}-${row.id}`}>
                       <TableCell>{row.description}</TableCell>
-                      <TableCell>{row.room}</TableCell>
-                      <TableCell>{row.cost}</TableCell>
+                      <TableCell>{row.bedtype}</TableCell>
+                      <TableCell>{row.price}</TableCell>
                     </TableRow>
                   ))}
-              </>
-            )}
-          </TableBody>
+              </TableBody>
+            </>
+          )}
         </Table>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 };

@@ -39,8 +39,7 @@ export const AddBus = () => {
             }}
             validationSchema={addBusSchema}
             onSubmit={async (values) => {
-              //console.log("YAHAN TAK AAA GYA");
-              const response = await AddBuses(values, loginType); // Pass loginType to AddPlan
+              await AddBuses(values, loginType); // Pass loginType to AddPlan
               //console.log(response);
             }}
           >

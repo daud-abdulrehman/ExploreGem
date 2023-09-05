@@ -109,24 +109,30 @@ export const addHotel = async (values) => {
         "Content-Type": "application/json",
       },
     });
+    const { typeIdtoken } = response.data;
+    localStorage.setItem("typeIdtoken", typeIdtoken);
     return response.data;
   } catch (error) {
     console.error("server error");
   }
 };
 
-export const fetchHotelRooms = async () => {
-  try {
-    const token = localStorage.getItem("token");
-    const response = await axios.get(`${BASE_URL}/hotel/added-rooms`, {
-      headers: {
-        "Content-Type": "application/json",
-        token: `${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("server error");
+export const FetchRooms = async (loginType) => {
+  if (loginType === "hotel") {
+    try {
+      const token = localStorage.getItem("typeIdtoken");
+      const decodedToken = jwt_decode(token);
+      const hotelId = decodedToken.typeId;
+      const response = await axios.get(
+        `${BASE_URL}/bus/fetch-buses?buscompanyId=${hotelId}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("server error", error);
+      return { error: "An error occurred" };
+    }
+  } else {
+    return { error: "Unauthorized access" };
   }
 };
 
@@ -227,6 +233,38 @@ export const AddBuses = async (values, loginType) => {
     }
   } else {
     //console.log("You don't have the authentication for that");
+    return { error: "Unauthorized access" };
+  }
+};
+
+export const AddRooms = async (values, imageFile, loginType) => {
+  if (loginType === "hotel") {
+    try {
+      const token = localStorage.getItem("typeIdtoken");
+      const decodedToken = jwt_decode(token);
+      const hotelId = decodedToken.typeId;
+      const formData = new FormData();
+      formData.append("hotelId", hotelId);
+      Object.keys(values).forEach((key) => {
+        formData.append(key, values[key]);
+      });
+      formData.append("image", imageFile);
+      const response = await axios.post(
+        `${BASE_URL}/hotel/add-rooms`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Server error:", error);
+      return { error: "An error occurred" };
+    }
+  } else {
     return { error: "Unauthorized access" };
   }
 };

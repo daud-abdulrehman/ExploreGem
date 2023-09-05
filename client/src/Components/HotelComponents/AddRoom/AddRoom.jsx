@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { Grid, Button, TextField } from "@mui/material";
-import { AddPlan } from "../../API/api";
+import { AddRooms } from "../../API/api";
 import { useAuth } from "../../AuthContext/AuthContext";
 import "./AddRoom.scss";
 import { HotelNavbar } from "../HotelNavBar/HotelNavbar";
@@ -10,6 +10,13 @@ import Footer from "../../Footer/Footer";
 
 export const AddRoom = () => {
   const { loginType } = useAuth();
+  const [imageFile, setImageFile] = useState(null);
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImageFile(URL.createObjectURL(file));
+    }
+  };
   const addRoomSchema = Yup.object().shape({
     description: Yup.string().required("Required"),
     bedtype: Yup.string().required("Required"),
@@ -31,7 +38,12 @@ export const AddRoom = () => {
             }}
             validationSchema={addRoomSchema}
             onSubmit={async (values) => {
-              const response = await AddPlan(values, loginType); // Pass loginType to AddPlan
+              //const formData = new FormData();
+              // formData.append("description", values.description);
+              // formData.append("bedtype", values.bedtype);
+              // formData.append("price", values.price);
+              // formData.append("image", values.image);
+              await AddRooms(values, imageFile, loginType);
               //console.log(response);
             }}
           >
@@ -112,12 +124,12 @@ export const AddRoom = () => {
                           type="file"
                           accept="image/*"
                           style={{ display: "none" }} // hide the default file input
-                          error={Boolean(errors.image && touched.image)}
                           onChange={(event) => {
                             setFieldValue(
                               "image",
                               event.currentTarget.files[0]
                             );
+                            handleImageChange(event);
                           }}
                         />
                         <div className="image-button">

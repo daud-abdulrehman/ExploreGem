@@ -1,9 +1,10 @@
-const Agent = require("../modals/agentSchema");
+//const Agent = require("../modals/agentSchema");
 const Hotel = require("../modals/hotelSchema");
-const Traveler = require("../modals/travelerSchema");
-const BusCompany = require("../modals/buscompanySchema");
-const Admin = require("../modals/adminSchema");
-const User = require("../modals/userSchema");
+const Room = require("../modals/roomSchema");
+// const Traveler = require("../modals/travelerSchema");
+// const BusCompany = require("../modals/buscompanySchema");
+// const Admin = require("../modals/adminSchema");
+// const User = require("../modals/userSchema");
 const jwt = require("jsonwebtoken");
 
 const hotelControllers = {};
@@ -14,7 +15,36 @@ hotelControllers.Signup = async (req, res) => {
 
   const newHotel = { hotelname, registrationno, contact, location, userId };
   const hotel = await Hotel.create(newHotel);
-  res.send({ msg: "Hotel Signup Successful", hotel });
+  const typeIdtoken = jwt.sign({ typeId: hotel._id }, "Secret-Key", {
+    expiresIn: "1h",
+  });
+  res.json({ hotel, typeIdtoken });
+};
+
+hotelControllers.fetchRooms = async (req, res) => {
+  try {
+    const { hotelId } = req.query;
+
+    const hotel = await Hotel.find({ buscompanyId });
+    ////console.log(plans);
+    res.send(hotel);
+  } catch (error) {
+    console.error("Error fetching plans:", error);
+    res.status(500).json({ error: "An error occurred while fetching plans." });
+  }
+};
+
+hotelControllers.AddRooms = async (req, res) => {
+  const { description, bedtype, price, hotelId } = req.body;
+  const newBus = {
+    description,
+    bedtype,
+    price,
+    hotelId,
+    image: req.image,
+  };
+  const bus = await Room.create(newBus);
+  res.send({ msg: "Plan Added Successfully" });
 };
 
 module.exports = hotelControllers;
