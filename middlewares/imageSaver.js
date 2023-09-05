@@ -14,7 +14,7 @@ const imageUploader = multer().single("image");
 
 module.exports = (req, res, next) => {
   imageUploader(req, res, function (err) {
-    console.log(req.body);
+    //console.log(req.body);
     if (err) {
       return res.status(500).json({ error: "Failed to upload the image." });
     }
@@ -36,12 +36,12 @@ module.exports = (req, res, next) => {
           // Handle the error
           return res.status(500).json({ error: "Cloudinary upload error." });
         } else {
-          console.log("Cloudinary upload successful");
+          //console.log("Cloudinary upload successful");
           // Handle the successful upload
 
           const cloudinaryUrl = result.secure_url;
           req.image = cloudinaryUrl;
-          console.log(req.image);
+          //console.log(req.image);
 
           next();
         }

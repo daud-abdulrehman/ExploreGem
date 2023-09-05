@@ -48,7 +48,7 @@ export const BusDashboard = () => {
                   <TableCell className="tableValues">Source</TableCell>
                   <TableCell className="tableValues">Destination</TableCell>
                   <TableCell className="tableValues">Cost</TableCell>
-                  <TableCell className="tableValue">Departure Date</TableCell>
+                  <TableCell className="tableValues">Departure Date</TableCell>
                 </>
               )}
             </TableRow>
@@ -65,10 +65,11 @@ export const BusDashboard = () => {
                       <TableCell>{row.destinationcity}</TableCell>
                       <TableCell>{row.seats}</TableCell>
                       <TableCell>{row.bookedseats}</TableCell>
+                      <TableCell>{row.catagory}</TableCell>
                       <TableCell>{row.ticketprice}</TableCell>
                       <TableCell>{row.departuretime}</TableCell>
                       <TableCell>
-                        {new Date(row.date).toLocaleDateString()}
+                        {new Date(row.departuredate).toLocaleDateString()}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -76,17 +77,19 @@ export const BusDashboard = () => {
             </>
           ) : (
             <>
-              {Array.isArray(data) &&
-                data.map((row) => (
-                  <TableRow key={row.id}>
-                    <TableCell>{row.departurecity}</TableCell>
-                    <TableCell>{row.destinationcity}</TableCell>
-                    <TableCell>{row.ticketprice}</TableCell>
-                    <TableCell>
-                      {new Date(row.date).toLocaleDateString()}
-                    </TableCell>
-                  </TableRow>
-                ))}
+              <TableBody>
+                {Array.isArray(data) &&
+                  data.map((row, index) => (
+                    <TableRow key={`${index}-${row.id}`}>
+                      <TableCell>{row.departurecity}</TableCell>
+                      <TableCell>{row.destinationcity}</TableCell>
+                      <TableCell>{row.ticketprice}</TableCell>
+                      <TableCell>
+                        {new Date(row.departuredate).toLocaleDateString()}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
             </>
           )}
         </Table>

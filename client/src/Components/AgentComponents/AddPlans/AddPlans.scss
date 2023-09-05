@@ -57,28 +57,6 @@
       margin-right: -5px;
       margin-bottom: 20px;
 
-      input[type="date"]::-webkit-calendar-picker-indicator {
-        opacity: 1 !important;
-      }
-      input[type="date"]::-webkit-inner-spin-button,
-      input[type="date"]::-webkit-clear-button,
-      input[type="date"]::-webkit-outer-spin-button {
-        -webkit-appearance: none !important;
-        margin: 0 !important;
-      }
-      input[type="date"]::-webkit-datetime-edit-fields-wrapper,
-      input[type="date"]::-webkit-datetime-edit-text,
-      input[type="date"]::-webkit-datetime-edit-month-field,
-      input[type="date"]::-webkit-datetime-edit-day-field,
-      input[type="date"]::-webkit-datetime-edit-year-field {
-        color: transparent !important;
-        -webkit-appearance: none !important;
-        display: none !important;
-      }
-      input[type="date"]::-webkit-datetime-edit {
-        padding-left: 10px !important;
-      }
-
       p {
         margin-bottom: 10px;
         white-space: nowrap;
@@ -155,25 +133,6 @@
 
     .form-field {
       margin-bottom: 20px !important;
-    }
-
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      opacity: 1 !important;
-    }
-    input[type="date"]::-webkit-inner-spin-button,
-    input[type="date"]::-webkit-clear-button,
-    input[type="date"]::-webkit-outer-spin-button {
-      -webkit-appearance: none !important;
-      margin: 0 !important;
-    }
-    input[type="date"]::-webkit-datetime-edit-fields-wrapper,
-    input[type="date"]::-webkit-datetime-edit-text,
-    input[type="date"]::-webkit-datetime-edit-month-field,
-    input[type="date"]::-webkit-datetime-edit-day-field,
-    input[type="date"]::-webkit-datetime-edit-year-field {
-      color: transparent !important;
-      -webkit-appearance: none !important;
-      display: none !important;
     }
   }
 }

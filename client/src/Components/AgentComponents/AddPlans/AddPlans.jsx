@@ -17,7 +17,7 @@ export const AddPlansForm = () => {
     if (file) {
       setSelectedImage(file);
       setImageFile(URL.createObjectURL(file));
-      console.log(imageFile);
+      ////console.log(imageFile);
     }
   };
   // const { loginType } = useAuth();
@@ -65,9 +65,9 @@ export const AddPlansForm = () => {
               if (imageFile) {
                 formData.append("image", imageFile);
               }
-              console.log("Image", imageFile);
+              ////console.log("Image", imageFile);
               const response = await AddPlan(values, imageFile, loginType);
-              console.log(response);
+              ////console.log(response);
             }}
           >
             {({ errors, touched, setFieldValue }) => (
@@ -127,7 +127,7 @@ export const AddPlansForm = () => {
                         <TextField
                           id="date"
                           name="date"
-                          label="Enter your Date"
+                          //label="Enter your Date"
                           variant="outlined"
                           type="date"
                           error={Boolean(errors.date && touched.date)}

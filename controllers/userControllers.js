@@ -63,7 +63,7 @@ userControllers.Signin = async (req, res) => {
       expiresIn: "1h",
     });
     res.json({ token, type: existingUser.type, typeIdtoken });
-    console.log("Login Successful", existingUser.type);
+    //console.log("Login Successful", existingUser.type);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to sign in user" });

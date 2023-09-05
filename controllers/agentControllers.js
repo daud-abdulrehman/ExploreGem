@@ -24,10 +24,10 @@ agentControllers.Signup = async (req, res) => {
 agentControllers.fetchPlans = async (req, res) => {
   try {
     const { agentId } = req.query;
-    console.log(agentId);
+    //console.log(agentId);
 
     const plans = await Plan.find({ agentId });
-    //console.log(plans);
+    ////console.log(plans);
     res.send(plans);
   } catch (error) {
     console.error("Error fetching plans:", error);

@@ -28,19 +28,20 @@ export const AddBus = () => {
           <h1>Add Bus</h1>
           <Formik
             initialValues={{
-              lisceneplate: "",
               departurecity: "",
               destinationcity: "",
+              departuredate: null,
+              departuretime: "",
+              lisceneplate: "",
               seats: null,
               catagory: "",
               ticketprice: null,
-              departuretime: "",
-              departuredate: null,
             }}
             validationSchema={addBusSchema}
             onSubmit={async (values) => {
+              //console.log("YAHAN TAK AAA GYA");
               const response = await AddBuses(values, loginType); // Pass loginType to AddPlan
-              console.log(response);
+              //console.log(response);
             }}
           >
             {({ errors, touched, setFieldValue }) => (
@@ -145,20 +146,20 @@ export const AddBus = () => {
                       <div className="form-field">
                         <p>Liscence No</p>
                         <TextField
-                          id="liscenceno"
-                          name="liscenceno"
+                          id="lisceneplate"
+                          name="lisceneplateliscenceno"
                           label="Enter your Liscence No"
                           variant="outlined"
                           error={Boolean(
-                            errors.liscenceno && touched.liscenceno
+                            errors.lisceneplate && touched.lisceneplate
                           )}
                           helperText={
-                            errors.liscenceno &&
-                            touched.liscenceno &&
-                            String(errors.liscenceno)
+                            errors.lisceneplate &&
+                            touched.lisceneplate &&
+                            String(errors.lisceneplate)
                           }
                           onChange={(event) => {
-                            setFieldValue("liscenceno", event.target.value);
+                            setFieldValue("lisceneplate", event.target.value);
                           }}
                         />
                       </div>

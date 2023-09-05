@@ -68,7 +68,7 @@ export const SignupPage = () => {
                 if (type === "bus") {
                   navigate("/bus-details");
                 }
-                console.log("Signup Successful");
+                //console.log("Signup Successful");
               }}
             >
               {({ errors, touched, setFieldValue }) => (

@@ -48,4 +48,18 @@ busControllers.AddBuses = async (req, res) => {
   res.send({ msg: "Bus added Successfully", bus });
 };
 
+busControllers.fetchBuses = async (req, res) => {
+  try {
+    const { buscompanyId } = req.query;
+    //console.log(buscompanyId);
+
+    const buses = await Bus.find({ buscompanyId });
+    ////console.log(plans);
+    res.send(buses);
+  } catch (error) {
+    console.error("Error fetching plans:", error);
+    res.status(500).json({ error: "An error occurred while fetching plans." });
+  }
+};
+
 module.exports = busControllers;

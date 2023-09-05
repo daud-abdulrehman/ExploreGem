@@ -29,7 +29,7 @@ adminControllers.Signin = async (req, res) => {
       expiresIn: "1h",
     });
     res.json({ token });
-    console.log("login Sucessful");
+    //console.log("login Sucessful");
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to sign in admin" });

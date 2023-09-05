@@ -21,7 +21,7 @@ app.use(routes);
 const connectDB = require("./db/connect");
 connectDB();
 app.listen(port, () => {
-  console.log(`Server is listening on Port:${port}..`);
+  //console.log(`Server is listening on Port:${port}..`);
 });
 
 // app.use(express.json());
@@ -40,10 +40,10 @@ app.listen(port, () => {
 //   try {
 //     await connectDB(url);
 //     app.listen(port, () =>
-//       console.log(`Server is listening on port ${port}...`)
+//       //console.log(`Server is listening on port ${port}...`)
 //     );
 //   } catch (error) {
-//     console.log(error);
+//     //console.log(error);
 //   }
 // };
 

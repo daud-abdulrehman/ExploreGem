@@ -10,7 +10,7 @@ export const AddUser = async (values) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response.data);
+    ////console.log(response.data);
     const { token } = response.data;
     localStorage.setItem("token", token);
     return response.data;
@@ -28,7 +28,7 @@ export const GetUser = async (values) => {
     });
 
     const { token, typeIdtoken } = response.data;
-    //console.log(type);
+    ////console.log(type);
     localStorage.setItem("token", token);
     localStorage.setItem("typeIdtoken", typeIdtoken);
     return response.data;
@@ -36,7 +36,7 @@ export const GetUser = async (values) => {
     // Use navigate to navigate based on user type
   } catch (error) {
     // setServerError("Invalid email or password.");
-    console.log(error);
+    //console.log(error);
   }
 };
 
@@ -51,7 +51,7 @@ export const addTravellerDetails = async (values) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response.data);
+    ////console.log(response.data);
     const { typeIdtoken } = response.data;
     localStorage.setItem("typeIdtoken", typeIdtoken);
     return response.data;
@@ -71,7 +71,7 @@ export const addBusCompany = async (values) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response.data);
+    ////console.log(response.data);
     const { typeIdtoken } = response.data;
     localStorage.setItem("typeIdtoken", typeIdtoken);
     return response.data;
@@ -91,7 +91,7 @@ export const addAgent = async (values) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response.data);
+    ////console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("server error");
@@ -182,7 +182,7 @@ export const AddPlan = async (values, imageFile, loginType) => {
         formData.append(key, values[key]);
       });
       formData.append("image", imageFile); // Append the image file to the form data
-      console.log(formData);
+      ////console.log(formData);
 
       const response = await axios.post(
         `${BASE_URL}/agent/add-plans`,
@@ -200,30 +200,33 @@ export const AddPlan = async (values, imageFile, loginType) => {
       return { error: "An error occurred" };
     }
   } else {
-    console.log("You don't have the authentication for that");
+    //console.log("You don't have the authentication for that");
     return { error: "Unauthorized access" };
   }
 };
 
 export const AddBuses = async (values, loginType) => {
+  //console.log(loginType);
   if (loginType === "bus") {
     try {
       const token = localStorage.getItem("typeIdtoken");
       const decodedToken = jwt_decode(token);
       const busId = decodedToken.typeId;
       values.buscompanyId = busId;
+      //console.log("Request Send");
       const response = await axios.post(`${BASE_URL}/bus/add-buses`, values, {
         headers: {
           "Content-Type": "application/json",
         },
       });
+      //console.log(response.data);
       return response.data;
     } catch (error) {
       console.error("Server error:", error);
       return { error: "An error occurred" };
     }
   } else {
-    console.log("You don't have the authentication for that");
+    //console.log("You don't have the authentication for that");
     return { error: "Unauthorized access" };
   }
 };
