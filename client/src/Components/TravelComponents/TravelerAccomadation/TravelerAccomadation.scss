@@ -13,13 +13,13 @@
       align-items: center; /* Center fields horizontally */
       padding: 0; /* Remove padding on mobile */
     }
-  
+
     .MuiFormControl-root {
       width: 100%;
       max-width: 300px;
       margin-bottom: 20px;
     }
-  
+
     button {
       width: 100%;
       max-width: 300px;
@@ -73,7 +73,7 @@
   @media (max-width: 600px) {
     margin-right: 0px;
   }
-} 
+}
 
 .main-heading {
   display: flex;

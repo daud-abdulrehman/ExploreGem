@@ -44,7 +44,7 @@ export const TravellerDetail = () => {
               onSubmit={async (values) => {
                 const response = await addTravellerDetails(values);
                 if (response) {
-                  navigate("/traveller-dashboard");
+                  navigate("/traveler-dashboard");
                 }
               }}
             >

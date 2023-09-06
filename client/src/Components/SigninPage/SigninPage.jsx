@@ -47,7 +47,7 @@ export const SigninPage = () => {
                 setIsLoggedIn(true);
                 setLoginType(type);
                 if (type === "traveller") {
-                  navigate("/traveller-dashboard");
+                  navigate("/traveler-dashboard");
                 } else if (type === "agent") {
                   navigate("/agent-dashboard");
                 }

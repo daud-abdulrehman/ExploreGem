@@ -269,3 +269,20 @@ export const AddRooms = async (values, imageFile, loginType) => {
     return { error: "Unauthorized access" };
   }
 };
+
+export const TravellerAccomadation = async (loginType, values) => {
+  if (loginType === "traveller") {
+    try {
+      const { destinationcity, staybudget, bedtype } = values;
+      const response = await axios.get(
+        `${BASE_URL}/traveler/accommodation/filter?destinationcity=${destinationcity}&staybudget=${staybudget}&bedtype=${bedtype}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("server error", error);
+      return { error: "An error occurred" };
+    }
+  } else {
+    return { error: "Unauthorized access" };
+  }
+};

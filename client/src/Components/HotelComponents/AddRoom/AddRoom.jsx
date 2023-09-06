@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
-import { Grid, Button, TextField } from "@mui/material";
+import { Grid, Button, TextField, MenuItem } from "@mui/material";
 import { AddRooms } from "../../API/api";
 import { useAuth } from "../../AuthContext/AuthContext";
 import "./AddRoom.scss";
@@ -38,16 +38,10 @@ export const AddRoom = () => {
             }}
             validationSchema={addRoomSchema}
             onSubmit={async (values) => {
-              //const formData = new FormData();
-              // formData.append("description", values.description);
-              // formData.append("bedtype", values.bedtype);
-              // formData.append("price", values.price);
-              // formData.append("image", values.image);
               await AddRooms(values, imageFile, loginType);
-              //console.log(response);
             }}
           >
-            {({ errors, touched, setFieldValue }) => (
+            {({ values, errors, touched, setFieldValue }) => (
               <div className="form-container">
                 <Form>
                   <Grid container className="grid-container">
@@ -81,8 +75,11 @@ export const AddRoom = () => {
                         <TextField
                           id="bedtype"
                           name="bedtype"
-                          label="Enter Bed Type"
+                          label="Bed Type"
+                          select
                           variant="outlined"
+                          fullWidth
+                          value={values.bedtype} // Use values.bedtype
                           error={Boolean(errors.bedtype && touched.bedtype)}
                           helperText={
                             errors.bedtype &&
@@ -92,12 +89,15 @@ export const AddRoom = () => {
                           onChange={(event) => {
                             setFieldValue("bedtype", event.target.value);
                           }}
-                        />
+                        >
+                          <MenuItem value={"single"}>Single Bed</MenuItem>
+                          <MenuItem value={"double"}>Double Bed</MenuItem>
+                        </TextField>
                       </div>
                     </Grid>
                     <Grid item xs={12} md={4}>
                       <div className="form-field">
-                        <p>Date</p>
+                        <p>Price Per Night</p>
                         <TextField
                           id="price"
                           name="price"
