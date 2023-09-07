@@ -13,13 +13,13 @@
       align-items: center; /* Center fields horizontally */
       padding: 0; /* Remove padding on mobile */
     }
-  
+
     .MuiFormControl-root {
       width: 100%;
       max-width: 300px;
       margin-bottom: 20px;
     }
-  
+
     button {
       width: 100%;
       max-width: 300px;
@@ -63,6 +63,26 @@
       justify-content: space-between;
       margin-bottom: 20px;
       padding-left: 5px;
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // margin-bottom: 20px;
+        margin-left: 0px;
+        margin-bottom: 20px;
+        padding-right: 45px;
+        padding-left: 45px;
+        @media (max-width: 600px) {
+          padding-left: 7px;
+          padding-right: 7px;
+        }
+
+        p {
+          margin-bottom: 10px;
+          white-space: nowrap;
+          align-self: center;
+        }
+      }
     }
   }
 }
@@ -73,7 +93,7 @@
   @media (max-width: 600px) {
     margin-right: 0px;
   }
-} 
+}
 
 .main-heading {
   display: flex;
