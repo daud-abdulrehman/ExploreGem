@@ -36,8 +36,9 @@ travelerControllers.Accommodation = async (req, res) => {
         const hotelRooms = await Room.find({
           hotelId: hotel._id,
           bedtype: { $in: ["single", "double"] },
-          price: { $lte: stayBudget },
+          price: { $lte: staybudget },
         });
+        rooms = [...rooms, ...hotelRooms];
       }
     } else {
       for (const hotel of hotels) {
@@ -56,7 +57,6 @@ travelerControllers.Accommodation = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred" });
-    //console.log("Bruh");
   }
 };
 
