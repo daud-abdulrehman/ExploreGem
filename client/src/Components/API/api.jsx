@@ -286,3 +286,27 @@ export const TravellerAccomadation = async (loginType, values) => {
     return { error: "Unauthorized access" };
   }
 };
+
+export const BusTraveler = async (loginType, values) => {
+  if (loginType === "traveller") {
+    try {
+      const {
+        depaturecity,
+        destinationcity,
+        depaturedate,
+        returndate,
+        nooftravelers,
+        travelbudget,
+      } = values;
+      const response = await axios.get(
+        `${BASE_URL}/traveler/trip/filter?depaturecity=${depaturecity}&destinationcity=${destinationcity}&depaturedate=${depaturedate}&returndate=${returndate}&nooftravelers=${nooftravelers}&travelbudget=${travelbudget}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("server error", error);
+      return { error: "An error occurred" };
+    }
+  } else {
+    return { error: "Unauthorized access" };
+  }
+};
