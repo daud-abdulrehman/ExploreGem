@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css?family=Laila");
+
 
 .traveler-accomadation-container {
   font-family: "Open Sans", sans-serif !important;
@@ -24,7 +26,7 @@
       width: 100%;
       max-width: 300px;
       align-self: center;
-      background-color: #00a651;
+      background-color: darkolivegreen;
     }
   }
 
@@ -43,7 +45,7 @@
 
         .MuiOutlinedInput-root {
           fieldset {
-            border-color: #00a651;
+            border-color: darkolivegreen;
             border-width: 2px;
             border-radius: 10px;
           }
@@ -53,7 +55,7 @@
       button {
         width: 300px;
         align-self: center;
-        background-color: #00a651;
+        background-color: darkolivegreen;
       }
     }
 
@@ -84,4 +86,52 @@
   padding-bottom: 7%;
 }
 
+.image-container{
+  height: 20%;
+  width: 20%;
+}
+
+.card-content{
+  background-image: url("../../../Picture/card-background.jpg");
+  background-size: cover;
+  background-position: center bottom; /* This positions the image at the center bottom */
+  border-top: 2px solid darkolivegreen !important;
+  border-width: 2px !important;
+  color: white;
+  font-family: "Laila", sans-serif !important;
+  display: flex;
+  justify-content:space-between;
+
+}
+
+.card-text{
+  font-family: "Laila", sans-serif !important;
+}
+
+.card-grid{
+  justify-content: space-evenly;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.bookroom-icon{
+  color: white !important;
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+.css-i4bv87-MuiSvgIcon-root{
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+.card-item{
+  border: 2px solid darkolivegreen !important;
+  border-width: 2px !important;
+  border-radius: 10px !important;
+}
+
+.card-border{
+  padding-top: 25px !important;
+}
 /* ... Other existing CSS rules ... */

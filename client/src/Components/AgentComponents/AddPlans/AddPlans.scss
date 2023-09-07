@@ -39,8 +39,8 @@
         grid-template-columns: repeat(4, 1fr);
       }
       button {
-        color: #00a651;
-        border: 2px solid #00a651 !important;
+        color: darkolivegreen;
+        border: 2px solid darkolivegreen !important;
         background-color: white !important;
         padding-top: 13px;
         padding-bottom: 13px;
@@ -68,7 +68,7 @@
 
         .MuiOutlinedInput-root {
           fieldset {
-            border-color: #00a651;
+            border-color: darkolivegreen;
             border-width: 2px;
             border-radius: 10px;
           }
@@ -78,7 +78,7 @@
       button {
         width: 300px;
         align-self: center;
-        background-color: #00a651;
+        background-color: darkolivegreen;
       }
 
       .button-container {
@@ -101,7 +101,7 @@
 
       .MuiOutlinedInput-root {
         fieldset {
-          border-color: #00a651;
+          border-color: darkolivegreen;
           border-width: 2px;
           border-radius: 10px;
         }
@@ -111,7 +111,7 @@
     button {
       width: 300px;
       align-self: center;
-      background-color: #00a651;
+      background-color: darkolivegreen;
     }
 
     .button-container {

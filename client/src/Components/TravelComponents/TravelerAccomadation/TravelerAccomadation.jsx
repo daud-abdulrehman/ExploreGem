@@ -6,16 +6,19 @@ import {
   useMediaQuery,
   TextField,
   Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  IconButton,
 } from "@mui/material";
-import "./TravelerAccomadation.scss";
+import BookmarkAddSharpIcon from '@mui/icons-material/BookmarkAddSharp';import "./TravelerAccomadation.scss";
 import Footer from "../../Footer/Footer";
 import TravelerNavBar from "../TravelerNavBar/TravelerNavBar";
-import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 import { TravellerAccomadation } from "../../API/api";
 import { useAuth } from "../../AuthContext/AuthContext";
 
@@ -124,29 +127,39 @@ export const TravelerAccomadation = () => {
 
           {results && (
             <>
-              <h2>Available Rooms:</h2>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Description</TableCell>
-                    <TableCell>Bed Type</TableCell>
-                    <TableCell>Price</TableCell>
-                    <TableCell>Image</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {results.map((room) => (
-                    <TableRow key={room._id}>
-                      <TableCell>{room.description}</TableCell>
-                      <TableCell>{room.bedtype}</TableCell>
-                      <TableCell>Rs.{room.price}</TableCell>
-                      <TableCell>
-                        <img src={room.image} alt="" />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <Grid container spacing={2} className="card-grid">
+                {results.map((room) => (
+                  <Grid item xs={12} sm={6} md={4} key={room._id} className="card-border" >
+                    <Card className="card-item">
+                      <CardMedia
+                        component="img"
+                        alt=""
+                        height="200"
+                        className="card-image"
+                        image={room.image}
+                      />
+                      <CardContent className="card-content">
+                        <div>
+                        <Typography variant="h6" component="div" className="card-text">
+                          {room.description}
+                        </Typography>
+                        <Typography variant="body2" className="card-text">
+                          Bed Type: {room.bedtype}
+                        </Typography>
+                        <Typography variant="body2" className="card-text">
+                          Price: Rs.{room.price}
+                        </Typography>
+                        </div>
+                        <div>
+                        <IconButton aria-label="Book Room" className="bookroom-icon">
+                        <BookmarkAddSharpIcon />
+                        </IconButton>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
             </>
           )}
         </div>
