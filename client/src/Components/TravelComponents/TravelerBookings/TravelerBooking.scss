@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
-.hotelDashboard {
+.bookings-page {
   padding-bottom: 10%;
   h1,
   table {
@@ -8,27 +8,48 @@
   }
   h1 {
     text-align: center;
-    margin-top: 10%;
+    margin-top: 8%;
+    margin-bottom: 5%;
   }
-  
 
   table {
+    align-items: center;
     border-collapse: separate;
     max-width: 80%;
     border: 3px solid darkolivegreen;
     border-radius: 10px;
   }
-  .tableValues {
-    border-bottom: 1px solid darkolivegreen;
+
+  button {
+    background-color: darkolivegreen;
+    margin: auto;
   }
 
+  .tableLabels {
+    border-bottom: 1px solid darkolivegreen;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .tableValues {
+    text-align: center;
+    align-items: center;
+  }
 
   @media (max-width: 600px) {
     h1 {
+      padding-top: 11%;
+      padding-bottom: 11%;
       font-size: 1.5rem;
+    }
+    .tableLabels {
+      border-bottom: 1px solid darkolivegreen;
+      text-align: center;
+      font-weight: bold;
     }
     .tableValues {
       font-size: 0.8rem !important;
+      text-align: center;
       border-bottom: 1px solid darkolivegreen;
     }
 
@@ -36,5 +57,6 @@
       max-width: 90%;
       font-size: 0.8rem;
     }
+    padding-bottom: 20%;
   }
 }

@@ -96,8 +96,30 @@ export default function TravelerNavBar () {
                       Accomadations{" "}
                     </Link>
                   </h6>
-                  <h6>Bookings</h6>
-                </>
+                  <h6
+                    className={
+                      location.pathname === "/traveler/bookings"
+                        ? "active-tab"
+                        : ""
+                    }
+                  >
+                    <Link to="/traveler/bookings" className="navbar-link">
+                      {" "}
+                      Bookings{" "}
+                    </Link>
+                  </h6>
+                  <h6
+                    className={
+                      location.pathname === "/traveler/previoustrips"
+                        ? "active-tab"
+                        : ""
+                    }
+                  >
+                    <Link to="/traveler/previoustrips" className="navbar-link">
+                      {" "}
+                      Previous Trips{" "}
+                    </Link>
+                  </h6>                </>
               )}
               <Button
                 variant="standard"

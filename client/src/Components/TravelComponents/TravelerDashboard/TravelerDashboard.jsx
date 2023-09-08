@@ -3,6 +3,11 @@ import "./TravelerDashboard.scss";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { Grid, useMediaQuery, TextField, Button } from "@mui/material";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+import TableHead from "@mui/material/TableHead";
 import "./TravelerDashboard.scss";
 import Footer from "../../Footer/Footer";
 import TravelerNavBar from "../TravelerNavBar/TravelerNavBar";
@@ -193,7 +198,10 @@ export const TravelerDashboard = () => {
               </Formik>
             </div>
           )}
-          {results && <></>}
+          {results && (
+            <>
+            </>
+          )}
         </div>
       </Grid>
       <Footer />
