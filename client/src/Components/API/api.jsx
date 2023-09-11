@@ -291,15 +291,15 @@ export const BusTraveler = async (loginType, values) => {
   if (loginType === "traveller") {
     try {
       const {
-        depaturecity,
+        departurecity,
         destinationcity,
-        depaturedate,
+        departuredate,
         returndate,
         nooftravelers,
         travelbudget,
       } = values;
       const response = await axios.get(
-        `${BASE_URL}/traveler/trip/filter?depaturecity=${depaturecity}&destinationcity=${destinationcity}&depaturedate=${depaturedate}&returndate=${returndate}&nooftravelers=${nooftravelers}&travelbudget=${travelbudget}`
+        `${BASE_URL}/traveler/trip/filter?departurecity=${departurecity}&destinationcity=${destinationcity}&departuredate=${departuredate}&returndate=${returndate}&nooftravelers=${nooftravelers}&travelbudget=${travelbudget}`
       );
       return response.data;
     } catch (error) {

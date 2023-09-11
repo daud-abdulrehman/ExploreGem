@@ -61,33 +61,55 @@ travelerControllers.Accommodation = async (req, res) => {
 travelerControllers.Trip = async (req, res) => {
   try {
     const {
-      depaturecity,
+      departurecity,
       destinationcity,
-      depaturedate,
+      departuredate,
       returndate,
       nooftravelers,
       travelbudget,
     } = req.query;
 
+    departurecity = departurecity.trim().toLowerCase();
+    destinationcity = destinationcity.trim().toLowerCase();
+
+    // Parse dates
+    let departuredateISO = new Date(departuredate + "T00:00:00Z");
+    let returndateISO = new Date(returndate + "T00:00:00Z");
+
+    // Check if dates are valid
+    if (isNaN(departuredateISO) || isNaN(returndateISO)) {
+      return res.status(400).json({ error: "Invalid date format" });
+    }
+
+    let startDeparture = new Date(departuredateISO);
+    let endDeparture = new Date(departuredateISO);
+    endDeparture.setDate(endDeparture.getDate() + 1);
+
+    let startReturn = new Date(returndateISO);
+    let endReturn = new Date(returndateISO);
+    endReturn.setDate(endReturn.getDate() + 1);
+
     const departureBuses = await Bus.find({
-      departurecity: depaturecity,
+      departurecity: departurecity,
       destinationcity: destinationcity,
-      departuredate: depaturedate,
+      departuredate: {
+        $gte: startDeparture,
+        $lt: endDeparture,
+      },
       ticketprice: { $lte: travelbudget / 2 },
       $expr: {
-        $gte: [{ $subtract: ["$seats", "$bookedseats"] }, nooftravelers],
+        $gte: [
+          { $subtract: ["$seats", "$bookedseats"] },
+          Number(nooftravelers),
+        ],
       },
     });
 
     const returnBuses = await Bus.find({
       departurecity: destinationcity,
-      destinationcity: depaturecity,
-      departuredate: returndate,
-      ticketprice: { $lte: travelbudget / 2 },
-      $expr: {
-        $gte: [{ $subtract: ["$seats", "$bookedseats"] }, nooftravelers],
-      },
+      destinationcity: departurecity,
     });
+    console.log(returnBuses);
 
     res.json({ departureBuses, returnBuses });
   } catch (error) {

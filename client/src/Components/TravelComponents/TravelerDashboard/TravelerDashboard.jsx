@@ -16,9 +16,9 @@ import { useAuth } from "../../AuthContext/AuthContext";
 
 export const TravelerDashboard = () => {
   const travelerdashboardSchema = Yup.object().shape({
-    depaturecity: Yup.string().required("Required"),
+    departurecity: Yup.string().required("Required"),
     destinationcity: Yup.string().required("Required"),
-    depaturedate: Yup.date().required("Required"),
+    departuredate: Yup.date().required("Required"),
     returndate: Yup.date().required("Required"),
     nooftravelers: Yup.number().required("Required"),
     travelbudget: Yup.number().required("Required"),
@@ -46,9 +46,9 @@ export const TravelerDashboard = () => {
             <div className="form-container">
               <Formik
                 initialValues={{
-                  depaturecity: "",
+                  departurecity: "",
                   destinationcity: "",
-                  depaturedate: "",
+                  departuredate: "",
                   returndate: "",
                   nooftravelers: "",
                   travelbudget: "",
@@ -65,20 +65,20 @@ export const TravelerDashboard = () => {
                       <div className="form-field">
                         <p>Departure City</p>
                         <TextField
-                          id="depaturecity"
-                          name="depaturecity"
+                          id="departurecity"
+                          name="departurecity"
                           label="Enter your Departure City"
                           variant="outlined"
                           error={Boolean(
-                            errors.depaturecity && touched.depaturecity
+                            errors.departurecity && touched.departurecity
                           )}
                           helperText={
-                            errors.depaturecity &&
-                            touched.depaturecity &&
-                            String(errors.depaturecity)
+                            errors.departurecity &&
+                            touched.departurecity &&
+                            String(errors.departurecity)
                           }
                           onChange={(event) => {
-                            setFieldValue("depaturecity", event.target.value);
+                            setFieldValue("departurecity", event.target.value);
                           }}
                         />
                       </div>
@@ -114,15 +114,15 @@ export const TravelerDashboard = () => {
                           variant="outlined"
                           type="date"
                           error={Boolean(
-                            errors.depaturedate && touched.depaturedate
+                            errors.departuredate && touched.departuredate
                           )}
                           helperText={
-                            errors.depaturedate &&
-                            touched.depaturedate &&
-                            String(errors.depaturedate)
+                            errors.departuredate &&
+                            touched.departuredate &&
+                            String(errors.departuredate)
                           }
                           onChange={(event) => {
-                            setFieldValue("depaturedate", event.target.value);
+                            setFieldValue("departuredate", event.target.value);
                           }}
                         />
                       </div>
@@ -198,10 +198,7 @@ export const TravelerDashboard = () => {
               </Formik>
             </div>
           )}
-          {results && (
-            <>
-            </>
-          )}
+          {results && <></>}
         </div>
       </Grid>
       <Footer />
