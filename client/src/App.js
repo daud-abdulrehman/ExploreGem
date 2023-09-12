@@ -23,6 +23,7 @@ import { TravellerDetail } from "./Components/TravelComponents/TravelDetail/Trav
 import { TravelerAccomadation } from "./Components/TravelComponents/TravelerAccomadation/TravelerAccomadation";
 import { PreviousTrips } from "./Components/TravelComponents/PreviousTrips/PreviousTrips";
 import { TravelerBooking } from "./Components/TravelComponents/TravelerBookings/TravelerBooking";
+import { RoomBookings } from "./Components/HotelComponents/RoomBookings/RoomBookings";
 
 function App() {
   return (
@@ -48,6 +49,8 @@ function App() {
           <Route path = "/traveler/accomadations" element= {<TravelerAccomadation/>}/>
           <Route path = "/traveler/previoustrips" element = {<PreviousTrips/>}/>
           <Route path = "/traveler/bookings" element = {<TravelerBooking/>}/>
+          <Route path = "/hotel/room-bookings" element = {<RoomBookings/>}/>
+
 
         </Routes>
       </div>

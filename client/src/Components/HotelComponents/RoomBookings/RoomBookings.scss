@@ -1,11 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
-.bookings-page {
+
+.roombookings-page {
   padding-bottom: 10%;
+
   h1,
   table {
     margin: 0 auto;
     font-family: "Open Sans", sans-serif !important;
   }
+
   h1 {
     text-align: center;
     margin-top: 8%;
@@ -36,17 +39,29 @@
     align-items: center;
   }
 
+  /* Styling for the card in mobile view */
+  .mobile-card {
+    margin: 10px;
+    border: 2px solid darkolivegreen;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
+  }
+
+  /* Additional mobile styles */
   @media (max-width: 600px) {
     h1 {
       padding-top: 11%;
       padding-bottom: 11%;
       font-size: 1.5rem;
     }
+
     .tableLabels {
       border-bottom: 1px solid darkolivegreen;
       text-align: center;
       font-weight: bold;
     }
+
     .tableValues {
       font-size: 0.8rem !important;
       text-align: center;
@@ -57,25 +72,13 @@
       max-width: 90%;
       font-size: 0.8rem;
     }
+
+    .table-container {
+      overflow-x: scroll;
+      white-space: nowrap;
+      max-width: 100%;
+    }
+
     padding-bottom: 20%;
-    /* Card CSS for mobile view */
-    .mobile-card {
-      margin: 1rem auto;
-      max-width: 90%;
-      border: 3px solid darkolivegreen;
-      border-radius: 10px;
-    }
-
-    .mobile-card .tableLabels {
-      border-bottom: 1px solid darkolivegreen;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .mobile-card .tableValues {
-      text-align: center;
-      font-size: 0.8rem !important;
-      border-bottom: 1px solid darkolivegreen;
-    }
   }
 }

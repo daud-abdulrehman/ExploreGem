@@ -59,4 +59,23 @@
     }
     padding-bottom: 20%;
   }
+  /* Add this CSS for mobile cards */
+  .mobile-card {
+    margin: 0 auto;
+    width: 80%;
+    border: 3px solid darkolivegreen;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 5px darkolivegreen;
+  }
+
+  .mobile-card h6 {
+    font-weight: bold;
+  }
+
+  .mobile-card p {
+    margin: 5px 0;
+    text-align: center;
+  }
 }

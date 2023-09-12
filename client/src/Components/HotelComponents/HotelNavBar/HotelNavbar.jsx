@@ -106,8 +106,18 @@ export const HotelNavbar = () => {
                       Add Rooms{" "}
                     </Link>
                   </h6>
-                  <h6>Room Bookings</h6>
-                </>
+                  <h6
+                    className={
+                      location.pathname === "/hotel/room-bookings"
+                        ? "active-tab"
+                        : ""
+                    }
+                  >
+                    <Link to="/hotel/room-bookings" className="navbar-link">
+                      {" "}
+                      Room Bookings{" "}
+                    </Link>
+                  </h6>                </>
               )}
               <Button
                 variant="standard"

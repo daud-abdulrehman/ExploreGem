@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./TravelerDashboard.scss";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { Grid, useMediaQuery, TextField, Button } from "@mui/material";
+import { Grid, useMediaQuery, TextField, Button,Box,Container,Paper } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -133,7 +133,6 @@ export const TravelerDashboard = () => {
                         <TextField
                           id="returndate"
                           name="returndate"
-                          //label="Enter your Return Date"
                           variant="outlined"
                           type="date"
                           error={Boolean(
@@ -198,7 +197,136 @@ export const TravelerDashboard = () => {
               </Formik>
             </div>
           )}
-          {results && <></>}
+          {results && (
+            <>
+              {isMobile ? (
+                <Paper component={Container}>
+                  <Box sx={{ overflowX: "auto" }}>
+                    <Table aria-label="simple table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell className="tableLabels">
+                            Departure City
+                          </TableCell>
+                          <TableCell className="tableLabels">
+                            Departure Date
+                          </TableCell>
+                          <TableCell className="tableLabels">
+                            Deaparture Time
+                          </TableCell>
+                          <TableCell className="tableLabels">
+                            Arrival City
+                          </TableCell>
+                          <TableCell className="tableLabels">
+                            Ticekt Price
+                          </TableCell>
+                          <TableCell className="tableLabels">
+                            Available Seats
+                          </TableCell>
+                          <TableCell className="tableLabels">
+                            Booked Seats
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                      {Array.isArray(results.departureBuses) &&
+                      results.departureBuses.map((row, index) => (
+                    <TableRow key={`${index}-${row.id}`}>
+                            <TableCell
+                              className="tableValues"
+                              component="th"
+                              scope="row"
+                            >
+                              {row.departurecity}
+                            </TableCell>
+                            <TableCell className="tableValues">
+                              {row.departuredate}
+                            </TableCell>
+                            <TableCell className="tableValues">
+                              {row.departuretime}
+                            </TableCell>
+                            <TableCell className="tableValues">
+                              {row.destinationcity}
+                            </TableCell>
+                            <TableCell className="tableValues">
+                              {row.ticketprice}
+                            </TableCell>
+                            <TableCell className="tableValues">
+                              {row.seats}
+                            </TableCell>
+                            <TableCell className="tableValues">
+                              {row.bookedseats}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </Box>
+                </Paper>
+              ) : (
+                // Render the table without Paper for larger screens
+                <Table aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell className="tableLabels">
+                        Departure City
+                      </TableCell>
+                      <TableCell className="tableLabels">
+                        Departure Date
+                      </TableCell>
+                      <TableCell className="tableLabels">
+                        Deaparture Time
+                      </TableCell>
+                      <TableCell className="tableLabels">
+                        Arrival City
+                      </TableCell>
+                      <TableCell className="tableLabels">
+                        Ticekt Price
+                      </TableCell>
+                      <TableCell className="tableLabels">
+                        Available Seats
+                      </TableCell>
+                      <TableCell className="tableLabels">
+                        Booked Seats
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                  {Array.isArray(results.departureBuses) &&
+                      results.departureBuses.map((row, index) => (
+                    <TableRow key={`${index}-${row.id}`}>
+                        <TableCell
+                          className="tableValues"
+                          component="th"
+                          scope="row"
+                        >
+                          {row.departurecity}
+                        </TableCell>
+                        <TableCell className="tableValues">
+                          {row.departuredate}
+                        </TableCell>
+                        <TableCell className="tableValues">
+                          {row.departuretime}
+                        </TableCell>
+                        <TableCell className="tableValues">
+                          {row.destinationcity}
+                        </TableCell>
+                        <TableCell className="tableValues">
+                          {row.ticketprice}
+                        </TableCell>
+                        <TableCell className="tableValues">
+                          {row.seats}
+                        </TableCell>
+                        <TableCell className="tableValues">
+                          {row.bookedseats}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </>
+          )}
         </div>
       </Grid>
       <Footer />
