@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./TravelerDashboard.scss";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { Grid, useMediaQuery, TextField, Button,Box,Container,Paper } from "@mui/material";
+import { Grid, useMediaQuery, TextField, Button } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -24,13 +24,14 @@ export const TravelerDashboard = () => {
     travelbudget: Yup.number().required("Required"),
   });
   const isMobile = useMediaQuery("(max-width:600px)");
-  const [results, setResults] = useState(null);
+  const [departureResults, setdepartureResults] = useState(null);
+  const [destinationResults, setdestinationResults] = useState(null);
   const { loginType } = useAuth();
 
   return (
     <>
       <TravelerNavBar />
-      {!results ? (
+      {!departureResults ? (
         <>
           <h1 className="main-heading">Enter Your Travel Plan</h1>
         </>
@@ -42,7 +43,7 @@ export const TravelerDashboard = () => {
 
       <Grid item xs={isMobile ? 12 : 4}>
         <div className="travelerplan-container">
-          {!results && (
+          {!departureResults && (
             <div className="form-container">
               <Formik
                 initialValues={{
@@ -56,7 +57,8 @@ export const TravelerDashboard = () => {
                 validationSchema={travelerdashboardSchema}
                 onSubmit={async (values) => {
                   const data = await BusTraveler(loginType, values);
-                  setResults(data.buses);
+                  setdepartureResults(data.departureBuses);
+                  setdestinationResults(data.returnBuses);
                 }}
               >
                 {({ errors, touched, setFieldValue }) => (
@@ -197,134 +199,24 @@ export const TravelerDashboard = () => {
               </Formik>
             </div>
           )}
-          {results && (
+          {departureResults && (
             <>
-              {isMobile ? (
-                <Paper component={Container}>
-                  <Box sx={{ overflowX: "auto" }}>
-                    <Table aria-label="simple table">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell className="tableLabels">
-                            Departure City
-                          </TableCell>
-                          <TableCell className="tableLabels">
-                            Departure Date
-                          </TableCell>
-                          <TableCell className="tableLabels">
-                            Deaparture Time
-                          </TableCell>
-                          <TableCell className="tableLabels">
-                            Arrival City
-                          </TableCell>
-                          <TableCell className="tableLabels">
-                            Ticekt Price
-                          </TableCell>
-                          <TableCell className="tableLabels">
-                            Available Seats
-                          </TableCell>
-                          <TableCell className="tableLabels">
-                            Booked Seats
-                          </TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                      {Array.isArray(results.departureBuses) &&
-                      results.departureBuses.map((row, index) => (
-                    <TableRow key={`${index}-${row.id}`}>
-                            <TableCell
-                              className="tableValues"
-                              component="th"
-                              scope="row"
-                            >
-                              {row.departurecity}
-                            </TableCell>
-                            <TableCell className="tableValues">
-                              {row.departuredate}
-                            </TableCell>
-                            <TableCell className="tableValues">
-                              {row.departuretime}
-                            </TableCell>
-                            <TableCell className="tableValues">
-                              {row.destinationcity}
-                            </TableCell>
-                            <TableCell className="tableValues">
-                              {row.ticketprice}
-                            </TableCell>
-                            <TableCell className="tableValues">
-                              {row.seats}
-                            </TableCell>
-                            <TableCell className="tableValues">
-                              {row.bookedseats}
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </Box>
-                </Paper>
-              ) : (
-                // Render the table without Paper for larger screens
-                <Table aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell className="tableLabels">
-                        Departure City
-                      </TableCell>
-                      <TableCell className="tableLabels">
-                        Departure Date
-                      </TableCell>
-                      <TableCell className="tableLabels">
-                        Deaparture Time
-                      </TableCell>
-                      <TableCell className="tableLabels">
-                        Arrival City
-                      </TableCell>
-                      <TableCell className="tableLabels">
-                        Ticekt Price
-                      </TableCell>
-                      <TableCell className="tableLabels">
-                        Available Seats
-                      </TableCell>
-                      <TableCell className="tableLabels">
-                        Booked Seats
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                  {Array.isArray(results.departureBuses) &&
-                      results.departureBuses.map((row, index) => (
-                    <TableRow key={`${index}-${row.id}`}>
-                        <TableCell
-                          className="tableValues"
-                          component="th"
-                          scope="row"
-                        >
-                          {row.departurecity}
-                        </TableCell>
-                        <TableCell className="tableValues">
-                          {row.departuredate}
-                        </TableCell>
-                        <TableCell className="tableValues">
-                          {row.departuretime}
-                        </TableCell>
-                        <TableCell className="tableValues">
-                          {row.destinationcity}
-                        </TableCell>
-                        <TableCell className="tableValues">
-                          {row.ticketprice}
-                        </TableCell>
-                        <TableCell className="tableValues">
-                          {row.seats}
-                        </TableCell>
-                        <TableCell className="tableValues">
-                          {row.bookedseats}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              )}
+              <div className="travelerplan-container">
+                <div className="table-container">
+                  <h2>Departure Buses</h2>
+                  {renderTable(departureResults, isMobile)}
+                </div>
+              </div>
+            </>
+          )}
+          {destinationResults && (
+            <>
+              <div className="travelerplan-container">
+                <div className="table-container">
+                  <h2>Return Buses</h2>
+                  {renderTable(destinationResults, isMobile)}
+                </div>
+              </div>
             </>
           )}
         </div>
@@ -333,3 +225,62 @@ export const TravelerDashboard = () => {
     </>
   );
 };
+
+function renderTable(data, isMobile) {
+  return (
+    <Table aria-label="simple table">
+      <TableHead>
+        <TableRow>
+          <TableCell className="tableLabels">Departure City</TableCell>
+          <TableCell className="tableLabels">Departure Date</TableCell>
+          <TableCell className="tableLabels">Deaparture Time</TableCell>
+          <TableCell className="tableLabels">Arrival City</TableCell>
+          {isMobile ? null : (
+            <>
+              <TableCell className="tableLabels">Ticket Price</TableCell>
+              <TableCell className="tableLabels">Available Seats</TableCell>
+              <TableCell className="tableLabels">Booked Seats</TableCell>
+            </>
+          )}
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {Array.isArray(data) &&
+          data.map((row, index) => (
+            <TableRow key={`${index}-${row.id}`}>
+              <TableCell className="tableValues" component="th" scope="row">
+                {row.departurecity}
+              </TableCell>
+              <TableCell className="tableValues">
+                {formatDate(row.departuredate)}
+              </TableCell>
+              <TableCell className="tableValues">{row.departuretime}</TableCell>
+              <TableCell className="tableValues">
+                {row.destinationcity}
+              </TableCell>
+              {isMobile ? null : (
+                <>
+                  <TableCell className="tableValues">
+                    {row.ticketprice}
+                  </TableCell>
+                  <TableCell className="tableValues">{row.seats}</TableCell>
+                  <TableCell className="tableValues">
+                    {row.bookedseats}
+                  </TableCell>
+                </>
+              )}
+            </TableRow>
+          ))}
+      </TableBody>
+    </Table>
+  );
+}
+
+function formatDate(isoString) {
+  const date = new Date(isoString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed in JS
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}

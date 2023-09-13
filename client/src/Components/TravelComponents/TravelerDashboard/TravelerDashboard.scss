@@ -3,6 +3,7 @@
 .travelerplan-container {
   font-family: "Open Sans", sans-serif !important;
   display: flex;
+  flex-direction: column; // Add this line
   justify-content: center;
   align-items: center;
   padding-bottom: 7%;

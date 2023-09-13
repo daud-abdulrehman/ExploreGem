@@ -33,10 +33,14 @@ busControllers.AddBuses = async (req, res) => {
     departuredate,
     buscompanyId,
   } = req.body;
+
+  const departurecityTrimmed = departurecity.trim().toLowerCase();
+  const destinationcityTrimmed = destinationcity.trim().toLowerCase();
+
   const newBus = {
     lisceneplate: lisceneplate,
-    departurecity: departurecity,
-    destinationcity: destinationcity,
+    departurecity: departurecityTrimmed,
+    destinationcity: destinationcityTrimmed,
     seats: seats,
     catagory: catagory,
     ticketprice: ticketprice,

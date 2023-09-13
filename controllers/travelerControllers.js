@@ -69,8 +69,8 @@ travelerControllers.Trip = async (req, res) => {
       travelbudget,
     } = req.query;
 
-    departurecity = departurecity.trim().toLowerCase();
-    destinationcity = destinationcity.trim().toLowerCase();
+    const departurecityTrimmed = departurecity.trim().toLowerCase();
+    const destinationcityTrimmed = destinationcity.trim().toLowerCase();
 
     // Parse dates
     let departuredateISO = new Date(departuredate + "T00:00:00Z");
@@ -88,10 +88,9 @@ travelerControllers.Trip = async (req, res) => {
     let startReturn = new Date(returndateISO);
     let endReturn = new Date(returndateISO);
     endReturn.setDate(endReturn.getDate() + 1);
-
     const departureBuses = await Bus.find({
-      departurecity: departurecity,
-      destinationcity: destinationcity,
+      departurecity: departurecityTrimmed,
+      destinationcity: destinationcityTrimmed,
       departuredate: {
         $gte: startDeparture,
         $lt: endDeparture,
@@ -106,10 +105,20 @@ travelerControllers.Trip = async (req, res) => {
     });
 
     const returnBuses = await Bus.find({
-      departurecity: destinationcity,
-      destinationcity: departurecity,
+      departurecity: destinationcityTrimmed,
+      destinationcity: departurecityTrimmed,
+      departuredate: {
+        $gte: startReturn,
+        $lt: endReturn,
+      },
+      ticketprice: { $lte: travelbudget / 2 },
+      $expr: {
+        $gte: [
+          { $subtract: ["$seats", "$bookedseats"] },
+          Number(nooftravelers),
+        ],
+      },
     });
-    console.log(returnBuses);
 
     res.json({ departureBuses, returnBuses });
   } catch (error) {
