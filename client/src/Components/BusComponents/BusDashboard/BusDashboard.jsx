@@ -1,15 +1,23 @@
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
-import TableHead from "@mui/material/TableHead";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  IconButton,
+} from "@mui/material";
 import { BusNavbar } from "../BusNavBar/BusNavbar";
 import { useMediaQuery } from "@mui/material";
 import { FetchBuses } from "../../API/api";
 import "./BusDashboard.scss";
 import Footer from "../../Footer/Footer";
 import { useAuth } from "../../AuthContext/AuthContext";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export const BusDashboard = () => {
   // Fetch data from the database
@@ -28,71 +36,97 @@ export const BusDashboard = () => {
       <BusNavbar />
       <div className="busDashboard">
         <h1>Added Buses Details</h1>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              {!isMobile ? (
-                <>
-                  <TableCell className="tableValues">License Number</TableCell>
-                  <TableCell className="tableValues">Source</TableCell>
-                  <TableCell className="tableValues">Destination</TableCell>
-                  <TableCell className="tableValues">Seats</TableCell>
-                  <TableCell className="tableValues">Booked Seats</TableCell>
-                  <TableCell className="tableValues">Category</TableCell>
-                  <TableCell className="tableValues">Ticket Price</TableCell>
-                  <TableCell className="tableValues">Departure Time</TableCell>
-                  <TableCell className="tableValues">Departure Date</TableCell>
-                </>
-              ) : (
-                <>
-                  <TableCell className="tableValues">Source</TableCell>
-                  <TableCell className="tableValues">Destination</TableCell>
-                  <TableCell className="tableValues">Cost</TableCell>
-                  <TableCell className="tableValues">Departure Date</TableCell>
-                </>
-              )}
-            </TableRow>
-          </TableHead>
-
-          {!isMobile ? (
-            <>
-              <TableBody>
-                {Array.isArray(data) &&
-                  data.map((row, index) => (
-                    <TableRow key={`${index}-${row.id}`}>
-                      <TableCell>{row.lisceneplate}</TableCell>
-                      <TableCell>{row.departurecity}</TableCell>
-                      <TableCell>{row.destinationcity}</TableCell>
-                      <TableCell>{row.seats}</TableCell>
-                      <TableCell>{row.bookedseats}</TableCell>
-                      <TableCell>{row.catagory}</TableCell>
-                      <TableCell>{row.ticketprice}</TableCell>
-                      <TableCell>{row.departuretime}</TableCell>
-                      <TableCell>
-                        {new Date(row.departuredate).toLocaleDateString()}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </>
-          ) : (
-            <>
-              <TableBody>
-                {Array.isArray(data) &&
-                  data.map((row, index) => (
-                    <TableRow key={`${index}-${row.id}`}>
-                      <TableCell>{row.departurecity}</TableCell>
-                      <TableCell>{row.destinationcity}</TableCell>
-                      <TableCell>{row.ticketprice}</TableCell>
-                      <TableCell>
-                        {new Date(row.departuredate).toLocaleDateString()}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </>
-          )}
-        </Table>
+        {isMobile ? (
+          // Display card for mobile view
+          data.map((row) => (
+            <Card key={row.id} className="mobile-card">
+              <CardContent>
+                <Typography gutterBottom variant="h6">
+                  License Number: {row.lisceneplate}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Source: {row.departurecity}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Destination: {row.destinationcity}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Seats: {row.seats}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Booked Seats: {row.bookedseats}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Category: {row.catagory}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Ticket Price: {row.ticketprice}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Departure Time: {row.departuretime}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Departure Date:{" "}
+                  {new Date(row.departuredate).toLocaleDateString()}
+                </Typography>
+                <div className="icon-container">
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className="button-icon"
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        ) : (
+          // Display table for desktop view
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell className="tableValues">License Number</TableCell>
+                <TableCell className="tableValues">Source</TableCell>
+                <TableCell className="tableValues">Destination</TableCell>
+                <TableCell className="tableValues">Seats</TableCell>
+                <TableCell className="tableValues">Booked Seats</TableCell>
+                <TableCell className="tableValues">Category</TableCell>
+                <TableCell className="tableValues">Ticket Price</TableCell>
+                <TableCell className="tableValues">Departure Time</TableCell>
+                <TableCell className="tableValues">Departure Date</TableCell>
+                <TableCell className="tableValues">Delete</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Array.isArray(data) &&
+                data.map((row, index) => (
+                  <TableRow key={`${index}-${row.id}`}>
+                    <TableCell>{row.lisceneplate}</TableCell>
+                    <TableCell>{row.departurecity}</TableCell>
+                    <TableCell>{row.destinationcity}</TableCell>
+                    <TableCell>{row.seats}</TableCell>
+                    <TableCell>{row.bookedseats}</TableCell>
+                    <TableCell>{row.catagory}</TableCell>
+                    <TableCell>{row.ticketprice}</TableCell>
+                    <TableCell>{row.departuretime}</TableCell>
+                    <TableCell>
+                      {new Date(row.departuredate).toLocaleDateString()}
+                    </TableCell>
+                    <TableCell className="tableValues">
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        className="button-icon"
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        )}
       </div>
       <Footer />
     </>

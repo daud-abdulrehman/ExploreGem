@@ -1,15 +1,23 @@
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
-import TableHead from "@mui/material/TableHead";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Card,
+  CardContent,
+  Typography,
+  useMediaQuery,
+  Button
+} from "@mui/material";
 import { HotelNavbar } from "../HotelNavBar/HotelNavbar";
-import { useMediaQuery } from "@mui/material";
 import { FetchRooms } from "../../API/api";
 import "./HotelDashboard.scss";
 import Footer from "../../Footer/Footer";
 import { useAuth } from "../../AuthContext/AuthContext";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 
 export const HotelDashboard = () => {
   // Fetch data from the database
@@ -28,53 +36,65 @@ export const HotelDashboard = () => {
       <HotelNavbar />
       <div className="hotelDashboard">
         <h1>Added Hotel Room Details</h1>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              {!isMobile ? (
-                <>
-                  <TableCell className="tableValues">Description</TableCell>
-                  <TableCell className="tableValues">Bed Type</TableCell>
-                  <TableCell className="tableValues">Price</TableCell>
-                </>
-              ) : (
-                <>
-                  <TableCell className="tableValues">Description</TableCell>
-                  <TableCell className="tableValues">Bed Type</TableCell>
-                  <TableCell className="tableValues">Price</TableCell>
-                </>
-              )}
-            </TableRow>
-          </TableHead>
+        {isMobile ? (
+          // Display card for mobile view
+          data.map((row) => (
+            <Card key={row.id} className="mobile-card">
+              <CardContent>
+                <Typography gutterBottom variant="h6">
+                  Description: {row.description}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Bed Type: {row.bedtype}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Price: {row.price}
+                </Typography>
+                <div className="icon-container">
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className="button-icon"
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        ) : (
+          // Display table for desktop view
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell className="tableLabels">Description</TableCell>
+                <TableCell className="tableLabels">Bed Type</TableCell>
+                <TableCell className="tableLabels">Price</TableCell>
+                <TableCell className="tableLabels">Delete</TableCell>
 
-          {!isMobile ? (
-            <>
-              <TableBody>
-                {Array.isArray(data) &&
-                  data.map((row, index) => (
-                    <TableRow key={`${index}-${row.id}`}>
-                      <TableCell>{row.description}</TableCell>
-                      <TableCell>{row.bedtype}</TableCell>
-                      <TableCell>{row.price}</TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </>
-          ) : (
-            <>
-              <TableBody>
-                {Array.isArray(data) &&
-                  data.map((row, index) => (
-                    <TableRow key={`${index}-${row.id}`}>
-                      <TableCell>{row.description}</TableCell>
-                      <TableCell>{row.bedtype}</TableCell>
-                      <TableCell>{row.price}</TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </>
-          )}
-        </Table>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Array.isArray(data) &&
+                data.map((row, index) => (
+                  <TableRow key={`${index}-${row.id}`}>
+                    <TableCell className="tableValues">{row.description}</TableCell>
+                    <TableCell className="tableValues">{row.bedtype}</TableCell>
+                    <TableCell className="tableValues">{row.price}</TableCell>
+                    <TableCell className="tableValues">
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        className="button-icon"
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        )}
       </div>
       <Footer />
     </>

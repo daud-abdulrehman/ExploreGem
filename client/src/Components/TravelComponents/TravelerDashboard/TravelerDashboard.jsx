@@ -2,7 +2,16 @@ import React, { useState } from "react";
 import "./TravelerDashboard.scss";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { Grid, useMediaQuery, TextField, Button } from "@mui/material";
+import {
+  Grid,
+  useMediaQuery,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  IconButton,
+} from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -13,6 +22,7 @@ import Footer from "../../Footer/Footer";
 import TravelerNavBar from "../TravelerNavBar/TravelerNavBar";
 import { BusTraveler } from "../../API/api";
 import { useAuth } from "../../AuthContext/AuthContext";
+import BookmarkAddSharpIcon from "@mui/icons-material/BookmarkAddSharp";
 
 export const TravelerDashboard = () => {
   const travelerdashboardSchema = Yup.object().shape({
@@ -26,6 +36,7 @@ export const TravelerDashboard = () => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [departureResults, setdepartureResults] = useState(null);
   const [destinationResults, setdestinationResults] = useState(null);
+  console.log(destinationResults);
   const { loginType } = useAuth();
 
   return (
@@ -36,9 +47,7 @@ export const TravelerDashboard = () => {
           <h1 className="main-heading">Enter Your Travel Plan</h1>
         </>
       ) : (
-        <>
-          <h1 className="main-heading">Desired Results</h1>
-        </>
+        <></>
       )}
 
       <Grid item xs={isMobile ? 12 : 4}>
@@ -201,21 +210,17 @@ export const TravelerDashboard = () => {
           )}
           {departureResults && (
             <>
-              <div className="travelerplan-container">
-                <div className="table-container">
-                  <h2>Departure Buses</h2>
-                  {renderTable(departureResults, isMobile)}
-                </div>
+              <div className="businfo-container">
+                <h1>Departure Buses</h1>
+                {renderTable(departureResults, isMobile)}
               </div>
             </>
           )}
           {destinationResults && (
             <>
-              <div className="travelerplan-container">
-                <div className="table-container">
-                  <h2>Return Buses</h2>
-                  {renderTable(destinationResults, isMobile)}
-                </div>
+              <div className="businfo-container">
+                <h1>Return Buses</h1>
+                {renderTable(destinationResults, isMobile)}
               </div>
             </>
           )}
@@ -227,55 +232,82 @@ export const TravelerDashboard = () => {
 };
 
 function renderTable(data, isMobile) {
-  return (
-    <Table aria-label="simple table">
-      <TableHead>
-        <TableRow>
-          <TableCell className="tableLabels">Departure City</TableCell>
-          <TableCell className="tableLabels">Departure Date</TableCell>
-          <TableCell className="tableLabels">Deaparture Time</TableCell>
-          <TableCell className="tableLabels">Arrival City</TableCell>
-          {isMobile ? null : (
-            <>
-              <TableCell className="tableLabels">Ticket Price</TableCell>
-              <TableCell className="tableLabels">Available Seats</TableCell>
-              <TableCell className="tableLabels">Booked Seats</TableCell>
-            </>
-          )}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {Array.isArray(data) &&
-          data.map((row, index) => (
-            <TableRow key={`${index}-${row.id}`}>
-              <TableCell className="tableValues" component="th" scope="row">
-                {row.departurecity}
-              </TableCell>
-              <TableCell className="tableValues">
-                {formatDate(row.departuredate)}
-              </TableCell>
-              <TableCell className="tableValues">{row.departuretime}</TableCell>
-              <TableCell className="tableValues">
-                {row.destinationcity}
-              </TableCell>
-              {isMobile ? null : (
-                <>
-                  <TableCell className="tableValues">
-                    {row.ticketprice}
-                  </TableCell>
-                  <TableCell className="tableValues">{row.seats}</TableCell>
-                  <TableCell className="tableValues">
-                    {row.bookedseats}
-                  </TableCell>
-                </>
-              )}
-            </TableRow>
-          ))}
-      </TableBody>
-    </Table>
-  );
+  if (isMobile) {
+    // Render as a card for mobile view
+    return (
+      <Card className="mobile-card">
+        <CardContent>
+          {Array.isArray(data) &&
+            data.map((row, index) => (
+              <div key={`${index}-${row.id}`}>
+                <Typography variant="h6">
+                  Departure City: {row.departurecity}
+                </Typography>
+                <Typography>
+                  Departure Date: {formatDate(row.departuredate)}
+                </Typography>
+                <Typography>Departure Time: {row.departuretime}</Typography>
+                <Typography>Arrival City: {row.destinationcity}</Typography>
+                <Typography>Ticket Price: {row.ticketprice}</Typography>
+                <Typography>Available Seats: {row.seats}</Typography>
+                <Typography>Booked Seats: {row.bookedseats}</Typography>
+                <Button variant="contained" type="submit" color="success">
+                    Book
+                </Button>
+              </div>
+            ))}
+        </CardContent>
+      </Card>
+    );
+  } else {
+    // Render as a table for non-mobile view
+    return (
+      <Table aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell className="tableLabels">Departure City</TableCell>
+            <TableCell className="tableLabels">Departure Date</TableCell>
+            <TableCell className="tableLabels">Departure Time</TableCell>
+            <TableCell className="tableLabels">Arrival City</TableCell>
+            <TableCell className="tableLabels">Ticket Price</TableCell>
+            <TableCell className="tableLabels">Available Seats</TableCell>
+            <TableCell className="tableLabels">Booked Seats</TableCell>
+            <TableCell className="tableLabels">Book</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {Array.isArray(data) &&
+            data.map((row, index) => (
+              <TableRow key={`${index}-${row.id}`}>
+                <TableCell className="tableValues" component="th" scope="row">
+                  {row.departurecity}
+                </TableCell>
+                <TableCell className="tableValues">
+                  {formatDate(row.departuredate)}
+                </TableCell>
+                <TableCell className="tableValues">
+                  {row.departuretime}
+                </TableCell>
+                <TableCell className="tableValues">
+                  {row.destinationcity}
+                </TableCell>
+                <TableCell className="tableValues">{row.ticketprice}</TableCell>
+                <TableCell className="tableValues">{row.seats}</TableCell>
+                <TableCell className="tableValues">
+                  {row.bookedseats}
+                </TableCell>{" "}
+                <TableCell className="tableValues">
+                <Button variant="contained" type="submit" color="success">
+                    Book
+                </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+    );
+  }
 }
-
 function formatDate(isoString) {
   const date = new Date(isoString);
   const year = date.getFullYear();

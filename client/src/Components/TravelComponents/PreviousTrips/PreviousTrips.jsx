@@ -18,6 +18,7 @@ import TravelerNavBar from "../TravelerNavBar/TravelerNavBar";
 import Footer from "../../Footer/Footer";
 import "./PreviousTrips.scss";
 import { useAuth } from "../../AuthContext/AuthContext";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export const PreviousTrips = ({ data }) => {
   // Sample data
@@ -79,55 +80,50 @@ export const PreviousTrips = ({ data }) => {
                 <Typography variant="body2" color="textSecondary">
                   Hotels Visited: {row.hotelsVisited.join(", ")}
                 </Typography>
+                <div className="icon-container">
+                <Button variant="contained" color="secondary" className="button-icon">
+                  <DeleteIcon fontSize="very small" /> 
+                </Button>
+                </div>
               </CardContent>
             </Card>
           ))
         ) : (
           // Render the table for larger screens
-          <Paper component={Container}>
-            <Box sx={{ overflowX: "auto" }}>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell className="tableLabels">From</TableCell>
-                    <TableCell className="tableLabels">To</TableCell>
-                    <TableCell className="tableLabels">Start Date</TableCell>
-                    <TableCell className="tableLabels">End Date</TableCell>
-                    <TableCell className="tableLabels">Total Cost</TableCell>
-                    <TableCell className="tableLabels">
-                      Hotels Visited
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {sampleData.map((row) => (
-                    <TableRow key={row.id}>
-                      <TableCell
-                        className="tableValues"
-                        component="th"
-                        scope="row"
-                      >
-                        {row.from}
-                      </TableCell>
-                      <TableCell className="tableValues">{row.to}</TableCell>
-                      <TableCell className="tableValues">
-                        {row.startDate}
-                      </TableCell>
-                      <TableCell className="tableValues">
-                        {row.endDate}
-                      </TableCell>
-                      <TableCell className="tableValues">
-                        {row.totalCost}
-                      </TableCell>
-                      <TableCell className="tableValues">
-                        {row.hotelsVisited.join(", ")}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-          </Paper>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell className="tableLabels">From</TableCell>
+                <TableCell className="tableLabels">To</TableCell>
+                <TableCell className="tableLabels">Start Date</TableCell>
+                <TableCell className="tableLabels">End Date</TableCell>
+                <TableCell className="tableLabels">Total Cost</TableCell>
+                <TableCell className="tableLabels">Hotels Visited</TableCell>
+                <TableCell className="tableLabels">Delete</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {sampleData.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell className="tableValues" component="th" scope="row">
+                    {row.from}
+                  </TableCell>
+                  <TableCell className="tableValues">{row.to}</TableCell>
+                  <TableCell className="tableValues">{row.startDate}</TableCell>
+                  <TableCell className="tableValues">{row.endDate}</TableCell>
+                  <TableCell className="tableValues">{row.totalCost}</TableCell>
+                  <TableCell className="tableValues">
+                    {row.hotelsVisited.join(", ")}
+                  </TableCell>
+                  <TableCell className="tableValues">
+                  <Button variant="contained" color="secondary">
+                    <DeleteIcon fontSize="small" /> 
+                  </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         )}
       </div>
       <Footer />

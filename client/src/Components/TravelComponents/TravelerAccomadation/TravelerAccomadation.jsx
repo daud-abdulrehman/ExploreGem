@@ -16,7 +16,8 @@ import {
   MenuItem,
   IconButton,
 } from "@mui/material";
-import BookmarkAddSharpIcon from '@mui/icons-material/BookmarkAddSharp';import "./TravelerAccomadation.scss";
+import BookmarkAddSharpIcon from '@mui/icons-material/BookmarkAddSharp';
+import "./TravelerAccomadation.scss";
 import Footer from "../../Footer/Footer";
 import TravelerNavBar from "../TravelerNavBar/TravelerNavBar";
 import { TravellerAccomadation } from "../../API/api";

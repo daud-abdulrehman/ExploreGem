@@ -57,6 +57,11 @@
       max-width: 90%;
       font-size: 0.8rem;
     }
+
+    .icon-container{
+      display: flex;
+      align-items: flex-end;
+    }
     padding-bottom: 20%;
   }
   /* Add this CSS for mobile cards */

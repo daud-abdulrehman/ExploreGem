@@ -105,4 +105,92 @@
   padding-bottom: 5%;
 }
 
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+.businfo-container {
+  h1,
+  table {
+    margin: 0 auto;
+    font-family: "Open Sans", sans-serif !important;
+  }
+  h1 {
+    text-align: center;
+    margin-top: 8%;
+    margin-bottom: 5%;
+  }
+
+  table {
+    align-items: center;
+    border-collapse: separate;
+    max-width: 80%;
+    border: 3px solid darkolivegreen;
+    border-radius: 10px;
+  }
+
+  button {
+    background-color: darkolivegreen;
+    margin: auto;
+  }
+
+  .tableLabels {
+    border-bottom: 1px solid darkolivegreen;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .tableValues {
+    text-align: center;
+    align-items: center;
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      padding-top: 11%;
+      padding-bottom: 11%;
+      font-size: 1.5rem;
+    }
+    .tableLabels {
+      border-bottom: 1px solid darkolivegreen;
+      text-align: center;
+      font-weight: bold;
+    }
+    .tableValues {
+      font-size: 0.8rem !important;
+      text-align: center;
+      border-bottom: 1px solid darkolivegreen;
+    }
+
+    table {
+      max-width: 90%;
+      font-size: 0.8rem;
+    }
+    padding-bottom: 20%;
+  }
+  /* Add this CSS for mobile cards */
+  .mobile-card {
+    margin: 0 auto;
+    width: 80%;
+    border: 3px solid darkolivegreen;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 5px darkolivegreen;
+  }
+
+  .mobile-card h6 {
+    font-weight: bold;
+  }
+
+  .mobile-card p {
+    margin: 5px 0;
+    text-align: center;
+  }
+}
+
+.bookroom-icon{
+  color: darkolivegreen !important;
+  width: 2rem !important;
+  height: 2rem !important;
+  background-color: white;
+}
+
 /* ... Other existing CSS rules ... */

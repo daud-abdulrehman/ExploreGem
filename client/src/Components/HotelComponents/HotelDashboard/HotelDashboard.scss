@@ -19,7 +19,27 @@
     border-radius: 10px;
   }
   .tableValues {
+    text-align: center;
+    align-items: center;
+  }
+
+  .tableLabels {
     border-bottom: 1px solid darkolivegreen;
+    text-align: center;
+    font-weight: bold;
+  }
+  .css-1ex1afd-MuiTableCell-root {
+    text-align: center;
+  }
+
+
+  button {
+    background-color: darkolivegreen;
+    margin: auto;
+  }
+  .icon-container{
+    display: flex;
+    align-items: flex-end;
   }
 
 

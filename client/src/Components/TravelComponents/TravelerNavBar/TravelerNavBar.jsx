@@ -15,7 +15,7 @@ import { Link, useLocation } from "react-router-dom";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import MenuIcon from "@mui/icons-material/Menu";
 
-export default function TravelerNavBar () {
+export default function TravelerNavBar() {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const location = useLocation();
@@ -36,7 +36,7 @@ export default function TravelerNavBar () {
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static" className="traveler-mui-navbar">
             <Toolbar variant="dense">
-            <h5>ExploreGem</h5>
+              <h5>ExploreGem</h5>
               {isMobile ? (
                 <>
                   <IconButton
@@ -66,13 +66,38 @@ export default function TravelerNavBar () {
                       horizontal: "left",
                     }}
                   >
-                    <MenuItem onClick={handleClose}>Home</MenuItem>
-                    <MenuItem onClick={handleClose}>Accomadations</MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <Link to="/traveler-dashboard" className="navbar-link">
+                        {" "}
+                        Home{" "}
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <Link to="/traveler/accomodation" className="navbar-link">
+                        {" "}
+                        Accomodation{" "}
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <Link to="/traveler/bookings" className="navbar-link">
+                        {" "}
+                        Bookings{" "}
+                      </Link>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <Link
+                        to="/traveler/previoustrips"
+                        className="navbar-link"
+                      >
+                        {" "}
+                        Previous Trips{" "}
+                      </Link>
+                    </MenuItem>
                   </Menu>
                 </>
               ) : (
                 <>
-                 <h6
+                  <h6
                     className={
                       location.pathname === "/traveler-dashboard"
                         ? "active-tab"
@@ -119,7 +144,8 @@ export default function TravelerNavBar () {
                       {" "}
                       Previous Trips{" "}
                     </Link>
-                  </h6>                </>
+                  </h6>{" "}
+                </>
               )}
               <Button
                 variant="standard"
@@ -133,4 +159,4 @@ export default function TravelerNavBar () {
       </Grid>
     </Grid>
   );
-};
+}
