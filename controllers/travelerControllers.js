@@ -3,6 +3,7 @@ const Hotel = require("../modals/hotelSchema");
 const Traveler = require("../modals/travelerSchema");
 const Room = require("../modals/roomSchema");
 const Bus = require("../modals/busSchema");
+const BusBooking = require("../modals/busbookingSchema");
 //const BusCompany = require("../modals/buscompanySchema");
 // const Admin = require("../modals/adminSchema");
 // const User = require("../modals/userSchema");
@@ -127,4 +128,15 @@ travelerControllers.Trip = async (req, res) => {
   }
 };
 
+travelerControllers.BookBus = async (req, res) => {
+  const { travelerId, busId, noofseats } = req.body;
+  const bus = await Bus.findByIdAndUpdate(
+    busId,
+    { $inc: { bookedseats: noofseats } },
+    { new: true }
+  );
+  const newBooking = { noofseats, travelerId, busId };
+  const createBooking = await BusBooking.create(newBooking);
+  res.send("Booking Made");
+};
 module.exports = travelerControllers;

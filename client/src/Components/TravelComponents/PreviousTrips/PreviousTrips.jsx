@@ -6,14 +6,11 @@ import {
   TableHead,
   TableRow,
   Button,
-  Container,
   Typography,
-  Box,
   useMediaQuery,
   Card,
   CardContent,
 } from "@mui/material";
-import Paper from "@mui/material/Paper"; // Import Paper here
 import TravelerNavBar from "../TravelerNavBar/TravelerNavBar";
 import Footer from "../../Footer/Footer";
 import "./PreviousTrips.scss";
@@ -81,9 +78,13 @@ export const PreviousTrips = ({ data }) => {
                   Hotels Visited: {row.hotelsVisited.join(", ")}
                 </Typography>
                 <div className="icon-container">
-                <Button variant="contained" color="secondary" className="button-icon">
-                  <DeleteIcon fontSize="very small" /> 
-                </Button>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className="button-icon"
+                  >
+                    <DeleteIcon fontSize="very small" />
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -116,9 +117,9 @@ export const PreviousTrips = ({ data }) => {
                     {row.hotelsVisited.join(", ")}
                   </TableCell>
                   <TableCell className="tableValues">
-                  <Button variant="contained" color="secondary">
-                    <DeleteIcon fontSize="small" /> 
-                  </Button>
+                    <Button variant="contained" color="secondary">
+                      <DeleteIcon fontSize="small" />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

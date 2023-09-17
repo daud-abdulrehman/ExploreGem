@@ -6,5 +6,5 @@ const router = Router();
 router.post("/signup", travelerControllers.Signup);
 router.get("/accommodation/filter", travelerControllers.Accommodation);
 router.get("/trip/filter", travelerControllers.Trip);
-
+router.post("/book-bus", travelerControllers.BookBus);
 module.exports = router;

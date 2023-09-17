@@ -10,7 +10,6 @@ import {
   Card,
   CardContent,
   Typography,
-  IconButton,
 } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -22,7 +21,7 @@ import Footer from "../../Footer/Footer";
 import TravelerNavBar from "../TravelerNavBar/TravelerNavBar";
 import { BusTraveler } from "../../API/api";
 import { useAuth } from "../../AuthContext/AuthContext";
-import BookmarkAddSharpIcon from "@mui/icons-material/BookmarkAddSharp";
+import { BusBook } from "../../API/api";
 
 export const TravelerDashboard = () => {
   const travelerdashboardSchema = Yup.object().shape({
@@ -36,9 +35,8 @@ export const TravelerDashboard = () => {
   const isMobile = useMediaQuery("(max-width:600px)");
   const [departureResults, setdepartureResults] = useState(null);
   const [destinationResults, setdestinationResults] = useState(null);
-  console.log(destinationResults);
+  const [noofseats, setnoofseats] = useState(null);
   const { loginType } = useAuth();
-
   return (
     <>
       <TravelerNavBar />
@@ -176,6 +174,7 @@ export const TravelerDashboard = () => {
                           }
                           onChange={(event) => {
                             setFieldValue("nooftravelers", event.target.value);
+                            setnoofseats(event.target.value);
                           }}
                         />
                       </div>
@@ -212,7 +211,7 @@ export const TravelerDashboard = () => {
             <>
               <div className="businfo-container">
                 <h1>Departure Buses</h1>
-                {renderTable(departureResults, isMobile)}
+                {renderTable(departureResults, isMobile, loginType, noofseats)}
               </div>
             </>
           )}
@@ -220,7 +219,12 @@ export const TravelerDashboard = () => {
             <>
               <div className="businfo-container">
                 <h1>Return Buses</h1>
-                {renderTable(destinationResults, isMobile)}
+                {renderTable(
+                  destinationResults,
+                  isMobile,
+                  loginType,
+                  noofseats
+                )}
               </div>
             </>
           )}
@@ -231,7 +235,19 @@ export const TravelerDashboard = () => {
   );
 };
 
-function renderTable(data, isMobile) {
+function renderTable(data, isMobile, loginType, noofseats) {
+  const handleBookClick = async (busId) => {
+    try {
+      const response = await BusBook(busId, noofseats, loginType);
+      if (response.error) {
+        console.error("Booking error:", response.error);
+      } else {
+        // Booking successful, do something
+      }
+    } catch (error) {
+      console.error("Error booking bus:", error);
+    }
+  };
   if (isMobile) {
     // Render as a card for mobile view
     return (
@@ -251,8 +267,13 @@ function renderTable(data, isMobile) {
                 <Typography>Ticket Price: {row.ticketprice}</Typography>
                 <Typography>Available Seats: {row.seats}</Typography>
                 <Typography>Booked Seats: {row.bookedseats}</Typography>
-                <Button variant="contained" type="submit" color="success">
-                    Book
+                <Button
+                  variant="contained"
+                  type="submit"
+                  color="success"
+                  onClick={() => handleBookClick(row._id)}
+                >
+                  Book
                 </Button>
               </div>
             ))}
@@ -297,9 +318,14 @@ function renderTable(data, isMobile) {
                   {row.bookedseats}
                 </TableCell>{" "}
                 <TableCell className="tableValues">
-                <Button variant="contained" type="submit" color="success">
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    color="success"
+                    onClick={() => handleBookClick(row.id)}
+                  >
                     Book
-                </Button>
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

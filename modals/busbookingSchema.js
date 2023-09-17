@@ -2,18 +2,18 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const busbookingSchema = new Schema({
-  nooftickets: {
+  noofseats: {
     type: Number,
-    required: true,
-  },
-  travelerId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Traveler",
     required: true,
   },
   busId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Bus",
+    required: true,
+  },
+  travelerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Traveler",
     required: true,
   },
 });

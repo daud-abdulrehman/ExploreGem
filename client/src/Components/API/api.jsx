@@ -1,6 +1,5 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-//import { useAuth } from "../AuthContext/AuthContext";
 const BASE_URL = "http://localhost:8000";
 
 export const AddUser = async (values) => {
@@ -10,7 +9,6 @@ export const AddUser = async (values) => {
         "Content-Type": "application/json",
       },
     });
-    ////console.log(response.data);
     const { token } = response.data;
     localStorage.setItem("token", token);
     return response.data;
@@ -301,6 +299,36 @@ export const BusTraveler = async (loginType, values) => {
       const response = await axios.get(
         `${BASE_URL}/traveler/trip/filter?departurecity=${departurecity}&destinationcity=${destinationcity}&departuredate=${departuredate}&returndate=${returndate}&nooftravelers=${nooftravelers}&travelbudget=${travelbudget}`
       );
+      return response.data;
+    } catch (error) {
+      console.error("server error", error);
+      return { error: "An error occurred" };
+    }
+  } else {
+    return { error: "Unauthorized access" };
+  }
+};
+
+export const BusBook = async (busId, noofseats, loginType) => {
+  if (loginType === "traveller") {
+    try {
+      const token = localStorage.getItem("typeIdtoken");
+      const decodedToken = jwt_decode(token);
+      const travelerId = decodedToken.typeId;
+      const response = await axios.post(
+        `${BASE_URL}/traveler/book-bus`,
+        {
+          noofseats,
+          busId,
+          travelerId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
       return response.data;
     } catch (error) {
       console.error("server error", error);
