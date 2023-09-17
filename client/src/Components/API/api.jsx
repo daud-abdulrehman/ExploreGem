@@ -328,7 +328,34 @@ export const BusBook = async (busId, noofseats, loginType) => {
           },
         }
       );
-      console.log(response);
+      return response.data;
+    } catch (error) {
+      console.error("server error", error);
+      return { error: "An error occurred" };
+    }
+  } else {
+    return { error: "Unauthorized access" };
+  }
+};
+
+export const RoomBook = async (roomId, loginType) => {
+  if (loginType === "traveller") {
+    try {
+      const token = localStorage.getItem("typeIdtoken");
+      const decodedToken = jwt_decode(token);
+      const travelerId = decodedToken.typeId;
+      const response = await axios.post(
+        `${BASE_URL}/traveler/book-room`,
+        {
+          roomId,
+          travelerId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       console.error("server error", error);

@@ -16,12 +16,13 @@ import {
   MenuItem,
   IconButton,
 } from "@mui/material";
-import BookmarkAddSharpIcon from '@mui/icons-material/BookmarkAddSharp';
+import BookmarkAddSharpIcon from "@mui/icons-material/BookmarkAddSharp";
 import "./TravelerAccomadation.scss";
 import Footer from "../../Footer/Footer";
 import TravelerNavBar from "../TravelerNavBar/TravelerNavBar";
 import { TravellerAccomadation } from "../../API/api";
 import { useAuth } from "../../AuthContext/AuthContext";
+import { RoomBook } from "../../API/api";
 
 export const TravelerAccomadation = () => {
   const [results, setResults] = useState(null);
@@ -130,7 +131,14 @@ export const TravelerAccomadation = () => {
             <>
               <Grid container spacing={2} className="card-grid">
                 {results.map((room) => (
-                  <Grid item xs={12} sm={6} md={4} key={room._id} className="card-border" >
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    key={room._id}
+                    className="card-border"
+                  >
                     <Card className="card-item">
                       <CardMedia
                         component="img"
@@ -141,20 +149,30 @@ export const TravelerAccomadation = () => {
                       />
                       <CardContent className="card-content">
                         <div>
-                        <Typography variant="h6" component="div" className="card-text">
-                          {room.description}
-                        </Typography>
-                        <Typography variant="body2" className="card-text">
-                          Bed Type: {room.bedtype}
-                        </Typography>
-                        <Typography variant="body2" className="card-text">
-                          Price: Rs.{room.price}
-                        </Typography>
+                          <Typography
+                            variant="h6"
+                            component="div"
+                            className="card-text"
+                          >
+                            {room.description}
+                          </Typography>
+                          <Typography variant="body2" className="card-text">
+                            Bed Type: {room.bedtype}
+                          </Typography>
+                          <Typography variant="body2" className="card-text">
+                            Price: Rs.{room.price}
+                          </Typography>
                         </div>
                         <div>
-                        <IconButton aria-label="Book Room" className="bookroom-icon">
-                        <BookmarkAddSharpIcon />
-                        </IconButton>
+                          <IconButton
+                            aria-label="Book Room"
+                            className="bookroom-icon"
+                            onClick={() =>
+                              handleBookmarkClick(room._id, loginType)
+                            }
+                          >
+                            <BookmarkAddSharpIcon />
+                          </IconButton>
                         </div>
                       </CardContent>
                     </Card>
@@ -168,4 +186,17 @@ export const TravelerAccomadation = () => {
       <Footer />
     </>
   );
+};
+const handleBookmarkClick = async (roomId, loginType) => {
+  try {
+    // Call your API function here
+    const response = await RoomBook(roomId, loginType);
+    if (response.error) {
+      console.error("Error:", response.error);
+    } else {
+      // Do something with the response
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
 };

@@ -12,8 +12,17 @@ const hotelControllers = {};
 //agent signup
 hotelControllers.Signup = async (req, res) => {
   const { hotelname, registrationno, contact, location, userId } = req.body;
+  const hotelnameTrimmed = hotelname.trim().toLowerCase();
+  const locationTrimmed = location.trim().toLowerCase();
 
-  const newHotel = { hotelname, registrationno, contact, location, userId };
+  const newHotel = {
+    hotelname: hotelnameTrimmed,
+    registrationno: registrationno,
+    contact: contact,
+    location: locationTrimmed,
+    userId: userId,
+  };
+
   const hotel = await Hotel.create(newHotel);
   const typeIdtoken = jwt.sign({ typeId: hotel._id }, "Secret-Key", {
     expiresIn: "1h",
@@ -35,6 +44,7 @@ hotelControllers.fetchRooms = async (req, res) => {
 
 hotelControllers.AddRooms = async (req, res) => {
   const { description, bedtype, price, hotelId } = req.body;
+
   const newBus = {
     description,
     bedtype,
